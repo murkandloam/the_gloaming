@@ -1,18 +1,26 @@
 the_gloaming
+
 "Music is a place."
+
 macOS only (Apple Silicon)
 
-What it is
+What it is:
 the_gloaming is a local music library manager built for collectors and audiophiles. It's for people with folders full of FLACs. Nerds with metadata compulsion.
 
 Features:
 
 True gapless playback (via native Swift audio engine)
+
 Records, not "albums": with artwork, ephemera, and metadata
+
 Cassettes: hand-curated playlists with custom cover art
+
 Programs: generative radio stations built from rules you define
+
 Ledgers: Time-based listening stats that respect attention
+
 No cloud. No accounts. No recommendations. Just your music.
+
 
 How it was built:
 I'm not a developer. I built this over 27 days by collaborating with Claude. I used one instance in a Claude Project for big-picture design and architecture when the codebase outgrew the context window. This instance heard me out and created handoffs that I brought to Claude Code.
