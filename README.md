@@ -26,3 +26,5 @@ How it was built:
 I'm not a developer. I built this over (2 months. the old copy was written early and hastily pasted in) by collaborating with Claude. I used one instance in a Claude Project for big-picture design and architecture when the codebase outgrew the context window. This instance heard me out and created handoffs that I brought to Claude Code.
 I'm sharing this because I think it's interesting, not because I think everyone should do it this way. I have always wanted an app like this, and actually, what I've found is that this process has made me want to learn more about coding. My dream app is sitting in my dock and I can hardly believe it.
 License: GPL v3. Free forever.
+
+DMG ready in releases!
