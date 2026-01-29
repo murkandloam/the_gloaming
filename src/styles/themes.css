@@ -1,0 +1,56 @@
+/**
+ * The Gloaming - Theme System
+ *
+ * Cabinet mode only - Dark wood & amber aesthetic.
+ */
+
+/* ========================================
+   CABINET (Dark Wood & Amber)
+   ======================================== */
+[data-theme="cabinet"],
+body {
+  /* Typography */
+  --font-body: Baskerville, 'Baskerville Old Face', 'Hoefler Text', Garamond, 'Times New Roman', serif;
+  --logo-color: #d4843a;
+
+  /* Glass panels (sidebars, top bar) */
+  --glass-bg: rgba(26, 15, 10, 0.5);
+  --glass-blur: blur(12px) saturate(150%);
+  --glass-border: rgba(74, 52, 40, 0.3);
+  --glass-shadow: rgba(0, 0, 0, 0.6);
+
+  /* Content well (main area) */
+  --content-bg-start: #2e1810;
+  --content-bg-end: #3d221a;
+  --content-border: rgba(107, 84, 68, 0.4);
+
+  /* Text hierarchy */
+  --text-primary: #e8dcc8;    /* Cream - main content */
+  --text-secondary: #a89880;  /* Tan - labels */
+  --text-tertiary: #8b7355;   /* Muted brown - inactive */
+  --text-inactive: #6b5444;   /* Dark brown - disabled */
+  --text-subtle: #4a3428;     /* Very dark - dividers */
+
+  /* Accent (LED glow) */
+  --accent-primary: #d4843a;
+  --accent-glow: rgba(212, 132, 58, 0.6);
+  --accent-dim: rgba(212, 132, 58, 0.3);
+
+  /* Interactive elements */
+  --button-bg: rgba(107, 84, 68, 0.4);
+  --button-border: rgba(139, 115, 85, 0.5);
+  --button-hover: rgba(107, 84, 68, 0.6);
+  --button-active: rgba(139, 115, 85, 0.8);
+
+  /* Special elements */
+  --action-btn-bg: #e8dcc8;           /* Cream for Open Sleeve */
+  --action-btn-color: #2e1810;        /* Dark wood text */
+  --action-btn-hover: #d8ccb8;        /* Slightly darker cream */
+  --pill-track-bg: rgba(0, 0, 0, 0.4); /* Dark pill track */
+
+  /* Semantic colors */
+  --success: #6b8e5d;
+  --warning: #d4843a;
+  --error: #8b4d4d;
+  --info: #4a7b9d;
+}

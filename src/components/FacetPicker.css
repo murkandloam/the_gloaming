@@ -1,0 +1,175 @@
+/**
+ * FacetPicker - Smokey glass popup styling
+ */
+
+.facet-picker-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.facet-picker {
+  width: 320px;
+  max-height: 420px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  box-shadow: 0 12px 40px var(--glass-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Search input */
+.facet-picker-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.facet-picker-search .search-icon {
+  color: var(--text-tertiary);
+  font-size: 14px;
+}
+
+.facet-picker-search input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 14px;
+}
+
+.facet-picker-search input::placeholder {
+  color: var(--text-inactive);
+}
+
+/* Results list */
+.facet-picker-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.facet-picker-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.facet-picker-list::-webkit-scrollbar-track {
+  background: var(--button-bg);
+}
+
+.facet-picker-list::-webkit-scrollbar-thumb {
+  background: var(--button-border);
+  border-radius: 4px;
+}
+
+/* Section headers */
+.facet-picker-section-header {
+  padding: 8px 12px 4px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-inactive);
+}
+
+/* Empty state */
+.facet-picker-empty {
+  padding: 24px 12px;
+  text-align: center;
+  color: var(--text-inactive);
+}
+
+/* Individual items */
+.facet-picker-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.facet-picker-item:hover:not(.disabled) {
+  background: var(--button-hover);
+}
+
+.facet-picker-item.selected {
+  background: var(--accent-dim);
+}
+
+.facet-picker-item.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.facet-picker-item-icon {
+  font-size: 8px;
+  color: var(--accent-primary);
+  width: 16px;
+  text-align: center;
+}
+
+/* Starred icon styling */
+.facet-picker-item-icon.starred {
+  font-size: 10px;
+  color: var(--accent-primary);
+}
+
+.facet-picker-item-name {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.facet-picker-item.disabled .facet-picker-item-name {
+  color: var(--text-tertiary);
+}
+
+.facet-picker-item-count {
+  font-size: 11px;
+  color: var(--text-inactive);
+}
+
+.facet-picker-item.disabled .facet-picker-item-count {
+  color: var(--accent-primary);
+}
+
+/* Create new option styling */
+.facet-picker-item .facet-picker-item-icon:first-child {
+  font-size: 12px;
+}
+
+/* Remove from recent button */
+.facet-picker-item-remove {
+  font-size: 14px;
+  color: var(--text-inactive);
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.15s ease;
+  padding: 0 4px;
+}
+
+.facet-picker-item:hover .facet-picker-item-remove {
+  opacity: 1;
+}
+
+.facet-picker-item-remove:hover {
+  color: var(--error);
+}

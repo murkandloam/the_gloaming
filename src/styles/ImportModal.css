@@ -1,0 +1,586 @@
+/* Import Modal Styles */
+
+.import-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  -webkit-app-region: no-drag;
+}
+
+.import-modal {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  width: 420px;
+  max-width: 90vw;
+  overflow: hidden;
+}
+
+/* Header */
+.import-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.import-modal-header h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+.import-modal-close {
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: transparent;
+  color: var(--text-tertiary);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+}
+
+.import-modal-close:hover {
+  background: var(--button-bg);
+  color: var(--text-primary);
+}
+
+/* Content */
+.import-modal-content {
+  padding: 14px;
+}
+
+/* Folder info */
+.import-folder-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background: var(--button-bg);
+  border-radius: 6px;
+  margin-bottom: 14px;
+}
+
+.import-folder-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.import-folder-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.import-folder-name {
+  font-size: 13px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.import-folder-type {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+/* Progress */
+.import-progress-section {
+  margin-top: 12px;
+}
+
+.import-progress-message {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  min-height: 18px;
+}
+
+.import-progress-bar {
+  height: 4px;
+  background: var(--button-bg);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.import-progress-fill {
+  height: 100%;
+  background: var(--accent-primary);
+  border-radius: 2px;
+  transition: width 0.2s ease-out;
+  position: relative;
+}
+
+.import-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Results */
+.import-results {
+  margin-top: 8px;
+}
+
+.import-result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.import-result-row:last-child {
+  border-bottom: none;
+}
+
+.import-result-label {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.import-result-value {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+/* Albums list (for artist imports) */
+.import-albums-list {
+  margin-top: 10px;
+  padding: 8px;
+  background: var(--button-bg);
+  border-radius: 4px;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.import-album-item {
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding: 3px 0;
+}
+
+.import-album-item.error {
+  color: var(--error-color, #c47a7a);
+}
+
+.import-album-tracks {
+  color: var(--text-tertiary);
+  margin-left: 6px;
+}
+
+/* Errors */
+.import-errors {
+  margin-top: 12px;
+  padding: 10px;
+  background: rgba(120, 60, 60, 0.15);
+  border: 1px solid rgba(180, 100, 100, 0.25);
+  border-radius: 4px;
+}
+
+.import-errors-title {
+  font-size: 12px;
+  color: var(--error-color, #c47a7a);
+  margin-bottom: 6px;
+}
+
+.import-error-item {
+  font-size: 11px;
+  color: var(--text-secondary);
+  padding: 2px 0;
+}
+
+.import-error-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background: rgba(120, 60, 60, 0.15);
+  border-radius: 4px;
+  color: var(--error-color, #c47a7a);
+  font-size: 13px;
+}
+
+.import-error-icon {
+  font-size: 20px;
+}
+
+/* Footer */
+.import-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 10px 14px;
+  border-top: 1px solid var(--glass-border);
+}
+
+/* Scrollbar for albums list */
+.import-albums-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.import-albums-list::-webkit-scrollbar-track {
+  background: rgba(20, 15, 12, 0.4);
+  border-radius: 3px;
+}
+
+.import-albums-list::-webkit-scrollbar-thumb {
+  background: rgba(139, 115, 85, 0.5);
+  border-radius: 3px;
+}
+
+.import-albums-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 115, 85, 0.7);
+}
+
+/* ============================================ */
+/* Import Decision Modal Styles */
+/* ============================================ */
+
+.import-decision-modal {
+  width: 500px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.import-decision-modal .import-modal-content {
+  overflow-y: auto;
+  flex: 1;
+  max-height: calc(80vh - 140px);
+}
+
+.import-decision-summary {
+  font-size: 14px;
+  color: #a89880;
+  margin-bottom: 20px;
+  padding: 12px;
+  background: rgba(20, 15, 12, 0.4);
+  border-radius: 6px;
+}
+
+.import-decision-summary strong {
+  color: #e8dcc8;
+}
+
+/* Decision group (album or orphans) */
+.import-decision-group {
+  background: rgba(20, 15, 12, 0.4);
+  border: 1px solid rgba(107, 84, 68, 0.3);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.import-decision-group.orphans {
+  border-color: rgba(139, 115, 85, 0.4);
+  background: rgba(30, 20, 15, 0.4);
+}
+
+.import-decision-group-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.import-decision-icon {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.import-decision-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.import-decision-album {
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 15px;
+  color: #e8dcc8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.import-decision-artist {
+  font-size: 13px;
+  color: #a89880;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.import-decision-count {
+  font-size: 11px;
+  color: #6b5444;
+  margin-top: 4px;
+}
+
+.import-decision-match {
+  font-size: 12px;
+  color: #d4843a;
+  background: rgba(212, 132, 58, 0.15);
+  padding: 6px 10px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+/* Action buttons */
+.import-decision-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.import-decision-actions .modal-btn {
+  flex: 1;
+  min-width: 100px;
+  text-align: center;
+}
+
+/* Orphan file list */
+.import-decision-orphan-list {
+  background: rgba(20, 15, 12, 0.4);
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 12px;
+}
+
+.import-decision-orphan-item {
+  font-size: 12px;
+  color: #a89880;
+  padding: 4px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.import-decision-orphan-item .orphan-artist {
+  color: #6b5444;
+}
+
+.import-decision-orphan-more {
+  font-size: 11px;
+  color: #6b5444;
+  padding-top: 4px;
+  font-style: italic;
+}
+
+/* Result item for decision modal */
+.import-result-item {
+  font-size: 13px;
+  color: #a89880;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(107, 84, 68, 0.2);
+}
+
+.import-result-item:last-child {
+  border-bottom: none;
+}
+
+/* Scrollbar for decision content */
+.import-decision-modal .import-modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.import-decision-modal .import-modal-content::-webkit-scrollbar-track {
+  background: rgba(20, 15, 12, 0.4);
+  border-radius: 3px;
+}
+
+.import-decision-modal .import-modal-content::-webkit-scrollbar-thumb {
+  background: rgba(139, 115, 85, 0.5);
+  border-radius: 3px;
+}
+
+.import-decision-modal .import-modal-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 115, 85, 0.7);
+}
+
+/* ============================================ */
+/* Inline Decision UI (shown in standard modal) */
+/* ============================================ */
+
+.import-decision-section {
+  margin-top: 8px;
+}
+
+.import-decision-intro {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 0 0 14px 0;
+  line-height: 1.4;
+}
+
+.import-decision-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.import-decision-item {
+  background: var(--button-bg);
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+
+.import-decision-album-info {
+  margin-bottom: 8px;
+}
+
+.import-decision-album-name {
+  font-size: 13px;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.import-decision-album-artist {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+.import-decision-file-count {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  margin-top: 4px;
+}
+
+.import-decision-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.import-decision-radio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.import-decision-radio input[type="radio"] {
+  margin: 0;
+  cursor: pointer;
+  accent-color: var(--accent-primary);
+}
+
+.import-decision-radio:hover span {
+  color: var(--text-primary);
+}
+
+/* Skip option styling */
+.import-decision-radio.skip-option span {
+  color: var(--text-tertiary);
+}
+
+.import-decision-radio.skip-option:hover span {
+  color: var(--text-secondary);
+}
+
+/* Skipped item styling */
+.import-decision-item.skipped {
+  opacity: 0.5;
+  background: transparent;
+  border: 1px dashed var(--glass-border);
+}
+
+.import-decision-item.skipped .import-decision-album-name,
+.import-decision-item.skipped .import-decision-album-artist {
+  text-decoration: line-through;
+}
+
+.import-decision-new-badge {
+  display: inline-block;
+  font-size: 10px;
+  color: var(--accent-primary);
+  background: rgba(var(--accent-primary-rgb, 139, 115, 85), 0.15);
+  padding: 3px 8px;
+  border-radius: 10px;
+}
+
+.import-decision-orphans {
+  margin-top: 12px;
+  padding: 10px;
+  background: rgba(139, 115, 85, 0.1);
+  border-radius: 4px;
+}
+
+.import-decision-orphans-label {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+/* Spinner for analyzing state */
+.import-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--button-bg);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 12px auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Scrollbar for decision list */
+.import-decision-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.import-decision-list::-webkit-scrollbar-track {
+  background: rgba(20, 15, 12, 0.4);
+  border-radius: 3px;
+}
+
+.import-decision-list::-webkit-scrollbar-thumb {
+  background: rgba(139, 115, 85, 0.5);
+  border-radius: 3px;
+}
+
+.import-decision-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 115, 85, 0.7);
+}

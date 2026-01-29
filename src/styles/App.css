@@ -1,0 +1,221 @@
+/* Main App Layout */
+.app {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: transparent; /* Let vibrancy show through */
+}
+
+/* Remove focus outline on buttons (spacebar triggers play/pause globally) */
+button:focus {
+  outline: none;
+}
+
+/* Keep focus visible for keyboard navigation on inputs */
+input:focus,
+textarea:focus {
+  outline: 1px solid var(--accent-primary);
+  outline-offset: -1px;
+}
+
+/* Main Content Area (below top bar) */
+.main-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* View Container (wood grain content well - OPAQUE) */
+.view-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 12px;
+  background:
+    radial-gradient(ellipse at center, rgba(255, 255, 255, 0.03) 0%, transparent 70%),
+    linear-gradient(135deg, var(--content-bg-start) 0%, var(--content-bg-end) 100%);
+  /* Fully opaque background with subtle radial highlight */
+}
+
+/* Responsive sidebars - hide below 1200px */
+@media (max-width: 1199px) {
+  .queue-sidebar,
+  .inspector-sidebar {
+    display: none;
+  }
+}
+
+/* Panopticon mode - view-container fills available space without sidebars */
+.main-content.panopticon-active .view-container {
+  padding: 0; /* Panopticon manages its own padding */
+}
+
+/* App loading state */
+.app-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.loading-message {
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 16px;
+  font-style: italic;
+  color: var(--text-secondary, #a89880);
+  background: rgba(20, 15, 12, 0.7);
+  padding: 20px 40px;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+/* Delete Confirmation Modal */
+.delete-confirm-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  backdrop-filter: blur(4px);
+}
+
+.delete-confirm-modal {
+  background: linear-gradient(180deg, rgba(45, 35, 28, 0.98) 0%, rgba(35, 28, 22, 0.98) 100%);
+  border: 1px solid rgba(139, 115, 85, 0.4);
+  border-radius: 12px;
+  padding: 24px 32px;
+  min-width: 320px;
+  max-width: 400px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+}
+
+.delete-confirm-modal h3 {
+  margin: 0 0 16px 0;
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 18px;
+  font-weight: normal;
+  color: var(--text-primary, #e8dcc8);
+  text-align: center;
+}
+
+.delete-confirm-modal p {
+  margin: 0 0 20px 0;
+  font-size: 14px;
+  color: var(--text-secondary, #a89880);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.delete-confirm-modal .delete-hint {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--text-tertiary, #8b7355);
+}
+
+.delete-confirm-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.delete-confirm-cancel,
+.delete-confirm-delete {
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.delete-confirm-cancel {
+  background: rgba(139, 115, 85, 0.2);
+  border: 1px solid rgba(139, 115, 85, 0.4);
+  color: var(--text-secondary, #a89880);
+}
+
+.delete-confirm-cancel:hover {
+  background: rgba(139, 115, 85, 0.3);
+  border-color: rgba(139, 115, 85, 0.6);
+}
+
+.delete-confirm-delete {
+  background: rgba(180, 60, 50, 0.3);
+  border: 1px solid rgba(200, 80, 70, 0.5);
+  color: #e8a8a0;
+}
+
+.delete-confirm-delete:hover {
+  background: rgba(180, 60, 50, 0.5);
+  border-color: rgba(200, 80, 70, 0.7);
+}
+
+/* ============================================
+   Induction Eye Animation (Ceremonial Transition)
+   ============================================ */
+.induction-eye-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 15, 10, 0.95);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: induction-fade-in 0.3s ease-out;
+}
+
+@keyframes induction-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.induction-eye-container {
+  animation: induction-eye-appear 1.2s ease-out forwards;
+}
+
+@keyframes induction-eye-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    /* Hold for blink */
+    opacity: 1;
+    transform: scale(1);
+  }
+  60% {
+    /* Blink - scale Y to 0 */
+    transform: scale(1, 0.1);
+  }
+  70% {
+    /* Open */
+    transform: scale(1, 1);
+  }
+  85% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+.induction-eye-image {
+  width: 180px;
+  height: auto;
+  filter: drop-shadow(0 0 40px var(--accent-glow, rgba(212, 132, 58, 0.5)));
+}

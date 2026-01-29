@@ -1,0 +1,281 @@
+/* Top Bar - Smokey Glass Receiver Faceplate */
+.top-bar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 24px 0;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 4px 12px var(--glass-shadow);
+  -webkit-app-region: drag; /* Make whole bar draggable */
+  user-select: none;
+}
+
+/* Logo Container - fixed height to prevent layout shift */
+.logo-container {
+  height: 28px;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Logo */
+.app-logo {
+  font-family: Baskerville, 'Baskerville Old Face', 'Hoefler Text', Garamond, 'Times New Roman', serif;
+  font-size: 18px;
+  color: var(--logo-color);
+  letter-spacing: 0.05em;
+  text-align: center;
+  user-select: none;
+}
+
+/* Rows */
+.top-bar-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  -webkit-app-region: no-drag; /* Rows with interactive elements aren't draggable */
+}
+
+/* Row 1: Navigation Tabs */
+.tabs-row {
+  padding: 6px 0;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.tab-link {
+  padding: 4px 8px;
+  color: var(--text-tertiary);
+  background: none;
+  border: none;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.tab-link:hover {
+  color: var(--text-secondary);
+}
+
+.tab-link.active {
+  color: var(--accent-primary);
+  text-shadow: 0 0 8px var(--accent-glow);
+}
+
+.tab-slash {
+  color: var(--text-subtle);
+  font-size: 11px;
+  user-select: none;
+}
+
+.tab-gear {
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* Row 2: EQ Visualizer */
+.eq-row {
+  padding: 6px 0;
+  -webkit-app-region: drag;
+}
+
+.eq-visualizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 1px;
+  height: 24px;
+  padding: 0 8px;
+}
+
+.eq-bar {
+  width: 4px;
+  background: var(--accent-primary);
+  border-radius: 1px;
+  transition: height 0.08s ease-out;
+  opacity: 0.4;
+  min-height: 2px;
+}
+
+.eq-visualizer.playing .eq-bar {
+  opacity: 1;
+  box-shadow: 0 0 3px var(--accent-glow);
+}
+
+/* Row 3: Now Playing Info */
+.info-row {
+  width: 100%;
+  padding: 1px 0 10px;
+  font-size: 10px;
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.track-time {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-inactive);
+  min-width: 45px;
+}
+
+.time-current {
+  text-align: left;
+}
+
+.time-remaining {
+  text-align: right;
+}
+
+.track-info-center {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  justify-content: center;
+}
+
+.top-bar-track-artist,
+.top-bar-track-title {
+  font-size: 10px;
+  color: var(--text-tertiary);
+}
+
+.track-separator {
+  color: var(--text-inactive);
+}
+
+.track-empty {
+  color: var(--text-subtle);
+}
+
+/* Progress Bar */
+.progress-bar-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 12px; /* Larger hit area */
+  display: flex;
+  align-items: flex-end;
+  -webkit-app-region: no-drag;
+  cursor: pointer;
+}
+
+.progress-track {
+  display: flex;
+  width: 100%;
+  height: 2px;
+  transition: height 0.15s ease;
+  position: relative;
+}
+
+.progress-bar-container:hover .progress-track {
+  height: 6px;
+}
+
+.progress-fill {
+  position: relative;
+  height: 100%;
+  background: var(--accent-primary);
+  box-shadow: 0 0 6px var(--accent-glow);
+  overflow: visible; /* Allow scrubber to overflow */
+  transition: box-shadow 0.15s ease;
+}
+
+.progress-bar-container:hover .progress-fill {
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* Scrubber handle - appears on hover */
+.progress-scrubber {
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 2px;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.5),
+    0 0 6px rgba(255, 255, 255, 0.4);
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.progress-bar-container:hover .progress-scrubber {
+  opacity: 1;
+}
+
+.progress-bar-container:active .progress-scrubber {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.progress-shimmer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Use mask to clip the shimmer within bounds */
+  -webkit-mask-image: linear-gradient(#000, #000);
+  mask-image: linear-gradient(#000, #000);
+}
+
+.progress-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(255, 230, 180, 0.5) 48%,
+    rgba(255, 230, 180, 0.8) 50%,
+    rgba(255, 230, 180, 0.5) 52%,
+    transparent 60%,
+    transparent 100%
+  );
+  animation: shimmer 5s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.progress-empty {
+  background: var(--button-bg);
+}
+
+/* Eye in TopBar (Panopticon mode) */
+.the-eye.app-logo-eye {
+  line-height: 1;
+}
+
+.the-eye.app-logo-eye img {
+  height: 24px;
+  width: auto;
+  vertical-align: middle;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 4px var(--accent-glow));
+}
+
+/* Panopticon mode styling */
+.top-bar.panopticon-mode {
+  background: linear-gradient(180deg, rgba(8, 6, 4, 0.95) 0%, var(--glass-bg) 100%);
+}

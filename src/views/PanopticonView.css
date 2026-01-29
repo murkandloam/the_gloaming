@@ -1,0 +1,2095 @@
+/* Panopticon - Mahogany Theme (unified with main app) */
+/* "Opening the hood to change the oil" - Power user territory */
+
+.panopticon {
+  /* Now fits within view-container, not fixed overlay */
+  flex: 1;
+  height: 100%; /* Ensure it fills the view-container height */
+  min-height: 0; /* Allow flex children to shrink and scroll */
+  background: var(--content-bg-start, #2e1810);
+  color: var(--text-primary, #e8dcc8);
+  font-family: var(--font-body, Baskerville, 'Baskerville Old Face', 'Hoefler Text', Garamond, serif);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* Disable text selection for drag/box-select operations */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Re-enable text selection in text inputs and editable areas */
+.panopticon input,
+.panopticon textarea,
+.panopticon [contenteditable="true"] {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+/* ============================================
+   Color Variables (Mahogany - uses theme vars)
+   ============================================ */
+.panopticon {
+  --pan-bg: var(--content-bg-start, #2e1810);
+  --pan-text: var(--text-primary, #e8dcc8);
+  --pan-text-dim: var(--text-secondary, #a89880);
+  --pan-text-muted: var(--text-tertiary, #8b7355);
+  --pan-accent: var(--accent-primary, #d4843a);
+  --pan-accent-glow: var(--accent-glow, rgba(212, 132, 58, 0.6));
+  --pan-accent-dim: var(--accent-dim, rgba(212, 132, 58, 0.3));
+  --pan-highlight: var(--text-primary, #e8dcc8);
+  --pan-danger: var(--error, #8b4d4d);
+  --pan-border: var(--content-border, rgba(107, 84, 68, 0.4));
+  --pan-surface: var(--button-bg, rgba(107, 84, 68, 0.4));
+
+  /* Legacy aliases for gradual migration */
+  --pan-silver: var(--pan-text);
+  --pan-silver-dim: var(--pan-text-dim);
+  --pan-blue: var(--pan-accent);
+  --pan-blue-dim: var(--pan-accent-dim);
+}
+
+/* ============================================
+   Silver Scrollbars
+   ============================================ */
+.panopticon ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.panopticon ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.panopticon ::-webkit-scrollbar-thumb {
+  background: var(--pan-silver-dim);
+  border-radius: 4px;
+}
+
+.panopticon ::-webkit-scrollbar-thumb:hover {
+  background: var(--pan-silver);
+}
+
+/* ============================================
+   Header - Eye centered
+   ============================================ */
+.panopticon-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--pan-border);
+  background: rgba(0, 0, 0, 0.2); /* Subtle contrast */
+  -webkit-app-region: drag;
+}
+
+.panopticon-eye {
+  width: 52px;
+  height: 35px;
+  -webkit-app-region: no-drag;
+}
+
+.panopticon-eye img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ============================================
+   Filter Bar - Compact
+   ============================================ */
+.panopticon-filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--pan-border);
+  gap: 12px;
+  -webkit-app-region: no-drag;
+}
+
+.panopticon-filters-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.panopticon-filters-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Filter Pills */
+.panopticon-pills {
+  display: flex;
+  gap: 4px;
+}
+
+.panopticon-pill {
+  background: transparent;
+  border: 1px solid var(--pan-border);
+  color: var(--pan-silver-dim);
+  padding: 4px 10px;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.panopticon-pill:hover {
+  border-color: var(--pan-silver-dim);
+  color: var(--pan-silver);
+}
+
+.panopticon-pill.active {
+  background: rgba(126, 184, 230, 0.15);
+  border-color: var(--pan-blue);
+  color: var(--pan-blue);
+  box-shadow: 0 0 8px rgba(126, 184, 230, 0.25);
+}
+
+/* Pill wrapper for dropdown */
+.panopticon-pill-wrapper {
+  position: relative;
+}
+
+/* SOME dropdown */
+.panopticon-some-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  background: var(--content-bg-end, #3d221a);
+  border: 1px solid var(--pan-border);
+  border-radius: 6px;
+  padding: 8px 0;
+  min-width: 140px;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.panopticon-some-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  font-size: 11px;
+  color: var(--pan-silver);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.panopticon-some-option:hover {
+  background: var(--pan-surface);
+}
+
+.panopticon-some-option input[type="checkbox"] {
+  accent-color: var(--pan-blue);
+  width: 14px;
+  height: 14px;
+}
+
+/* Nascent Sleeve Button */
+.panopticon-nascent-sleeve-btn {
+  background: var(--pan-surface);
+  border: 1px solid var(--pan-border);
+  color: var(--pan-silver);
+  padding: 4px 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.panopticon-nascent-sleeve-btn:hover {
+  border-color: var(--pan-blue);
+  color: var(--pan-blue);
+  box-shadow: 0 0 8px rgba(126, 184, 230, 0.25);
+}
+
+.panopticon-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.panopticon-filter-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--pan-silver-dim);
+}
+
+.panopticon-select {
+  background: var(--pan-surface);
+  border: 1px solid var(--pan-border);
+  color: var(--pan-silver);
+  padding: 4px 8px;
+  font-size: 11px;
+  border-radius: 3px;
+  cursor: pointer;
+  min-width: 80px;
+}
+
+.panopticon-select:hover {
+  border-color: var(--pan-silver-dim);
+}
+
+.panopticon-select:focus {
+  outline: none;
+  border-color: var(--pan-blue);
+}
+
+.panopticon-search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.panopticon-search-input {
+  background: var(--pan-surface);
+  border: 1px solid var(--pan-border);
+  color: var(--pan-silver);
+  padding: 4px 8px;
+  padding-right: 24px;
+  font-size: 11px;
+  border-radius: 3px;
+  width: 140px;
+}
+
+.panopticon-search-input::placeholder {
+  color: var(--pan-silver-dim);
+}
+
+.panopticon-search-input:focus {
+  outline: none;
+  border-color: var(--pan-blue);
+}
+
+.panopticon-search-clear {
+  position: absolute;
+  right: 4px;
+  background: none;
+  border: none;
+  color: var(--pan-silver-dim);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+
+.panopticon-search-clear:hover {
+  color: var(--pan-silver);
+}
+
+/* ============================================
+   Main Content Area
+   ============================================ */
+.panopticon-content {
+  flex: 1;
+  min-height: 0; /* Critical for nested flex scrolling */
+  display: flex;
+  overflow: hidden;
+}
+
+/* ============================================
+   List Container - Exactly 50% width
+   ============================================ */
+.panopticon-grid-container {
+  position: relative;
+  flex: 0 0 50%;
+  width: 50%;
+  min-height: 0; /* Allow scrolling within flex container */
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.panopticon-grid-container.drag-over {
+  border: 2px dashed var(--pan-accent);
+}
+
+/* ============================================
+   Detail Panel - Exactly 50% width
+   ============================================ */
+.panopticon-detail {
+  flex: 0 0 50%;
+  width: 50%;
+  min-height: 0; /* Critical for nested flex scrolling */
+  border-left: 1px solid var(--pan-border);
+  padding: 0 0 0 12px; /* Scrollbar reaches top and bottom */
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+.panopticon-detail-empty {
+  color: var(--pan-silver-dim);
+  text-align: center;
+  padding-top: 32px;
+  font-size: 12px;
+}
+
+/* Banner shown when selection is hidden by filters */
+.panopticon-detail-filtered-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  background: rgba(212, 132, 58, 0.15);
+  border: 1px solid rgba(212, 132, 58, 0.3);
+  border-radius: 6px;
+  font-size: 11px;
+  color: var(--pan-accent, #d4843a);
+}
+
+.panopticon-detail-filtered-banner span {
+  opacity: 0.9;
+}
+
+.panopticon-detail-filtered-banner button {
+  padding: 4px 10px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(212, 132, 58, 0.2);
+  border: 1px solid rgba(212, 132, 58, 0.4);
+  border-radius: 4px;
+  color: var(--pan-accent, #d4843a);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.panopticon-detail-filtered-banner button:hover {
+  background: rgba(212, 132, 58, 0.35);
+  border-color: var(--pan-accent, #d4843a);
+}
+
+/* Fixed size preview that doesn't resize with window */
+.panopticon-preview {
+  width: 180px;
+  height: 180px;
+  background: var(--pan-surface);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.panopticon-preview.clickable {
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.panopticon-preview.clickable:hover {
+  opacity: 0.85;
+}
+
+.panopticon-preview img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.panopticon-preview-placeholder {
+  font-size: 48px;
+  color: var(--pan-silver-dim);
+}
+
+.panopticon-detail-filename {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--pan-silver);
+  word-break: break-all;
+}
+
+.panopticon-detail-meta {
+  font-size: 11px;
+  color: var(--pan-silver-dim);
+  font-family: 'SF Mono', SFMono-Regular, Consolas, monospace;
+}
+
+.panopticon-detail-id {
+  font-size: 9px;
+  color: var(--pan-silver-dim);
+  font-family: 'SF Mono', SFMono-Regular, Consolas, monospace;
+  opacity: 0.7;
+}
+
+/* Detail Header - Horizontal layout with preview and meta side by side */
+.panopticon-detail-header {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.panopticon-preview-small {
+  width: 100px;
+  height: 100px;
+  background: var(--pan-surface);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.panopticon-preview-small.clickable {
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.panopticon-preview-small.clickable:hover {
+  opacity: 0.85;
+}
+
+.panopticon-preview-small img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.panopticon-preview-placeholder-small {
+  font-size: 32px;
+  color: var(--pan-silver-dim);
+}
+
+.panopticon-detail-meta-block {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 4px;
+}
+
+.panopticon-section {
+  border-top: 1px solid var(--pan-border);
+  padding-top: 8px;
+}
+
+.panopticon-section-title {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--pan-silver-dim);
+  margin-bottom: 6px;
+}
+
+.panopticon-link-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 0;
+  font-size: 11px;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.panopticon-link-checkbox {
+  accent-color: var(--pan-blue);
+  width: 12px;
+  height: 12px;
+}
+
+.panopticon-link-label {
+  color: var(--pan-silver);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.panopticon-link-type {
+  font-size: 9px;
+  color: var(--pan-silver-dim);
+  flex-shrink: 0;
+}
+
+.panopticon-no-links {
+  font-size: 11px;
+  color: var(--pan-silver-dim);
+  font-style: italic;
+}
+
+/* Link buttons */
+.panopticon-link-buttons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.panopticon-link-btn {
+  background: var(--pan-surface);
+  border: 1px solid var(--pan-border);
+  color: var(--pan-silver);
+  padding: 4px 8px;
+  font-size: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.panopticon-link-btn:hover {
+  border-color: var(--pan-blue);
+  color: var(--pan-blue);
+}
+
+/* Action buttons - all in one row */
+.panopticon-action-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.panopticon-util-btn {
+  flex: 1;
+  background: var(--pan-surface);
+  border: 1px solid var(--pan-border);
+  color: var(--pan-silver-dim);
+  padding: 6px;
+  font-size: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.panopticon-util-btn:hover {
+  border-color: var(--pan-silver-dim);
+  color: var(--pan-silver);
+}
+
+/* Delete button inline (in action row) */
+.panopticon-delete-btn-inline {
+  flex: 1;
+  background: rgba(196, 92, 92, 0.1);
+  border: 1px solid var(--pan-danger);
+  color: var(--pan-danger);
+  padding: 6px;
+  font-size: 10px;
+  font-weight: 500;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.panopticon-delete-btn-inline:hover {
+  background: rgba(196, 92, 92, 0.2);
+}
+
+/* Delete button (full width, for multi-select) */
+.panopticon-delete-btn {
+  width: 100%;
+  background: rgba(196, 92, 92, 0.1);
+  border: 1px solid var(--pan-danger);
+  color: var(--pan-danger);
+  padding: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  margin-top: auto;
+}
+
+.panopticon-delete-btn:hover {
+  background: rgba(196, 92, 92, 0.2);
+}
+
+/* Multi-select state */
+.panopticon-multi-header {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--pan-blue);
+}
+
+.panopticon-multi-size {
+  font-size: 11px;
+  color: var(--pan-silver-dim);
+}
+
+/* ============================================
+   Footer - Compact
+   ============================================ */
+.panopticon-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  border-top: 1px solid var(--pan-border);
+}
+
+/* Escape hatch - Mahogany styled button */
+.panopticon-escape {
+  background: linear-gradient(135deg, #3d2a1d 0%, #2a1c14 100%);
+  border: 1px solid rgba(212, 132, 58, 0.4);
+  color: #d4843a;
+  padding: 8px 16px;
+  font-size: 11px;
+  font-family: Baskerville, 'Baskerville Old Face', serif;
+  letter-spacing: 0.05em;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.panopticon-escape:hover {
+  border-color: rgba(212, 132, 58, 0.6);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(212, 132, 58, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.panopticon-selection-count {
+  font-size: 11px;
+  color: var(--pan-silver-dim);
+  font-family: 'SF Mono', SFMono-Regular, Consolas, monospace;
+}
+
+/* ============================================
+   Loading State
+   ============================================ */
+.panopticon-loading {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pan-silver-dim);
+  font-size: 12px;
+}
+
+/* ============================================
+   Delete Confirmation Modal
+   ============================================ */
+.panopticon-confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 15, 10, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+}
+
+.panopticon-confirm-modal {
+  background: var(--content-bg-end, #3d221a);
+  border: 1px solid var(--pan-border);
+  border-radius: 6px;
+  padding: 20px;
+  max-width: 360px;
+  width: 90%;
+}
+
+.panopticon-confirm-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--pan-silver);
+  margin-bottom: 10px;
+}
+
+.panopticon-confirm-message {
+  font-size: 12px;
+  color: var(--pan-silver-dim);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.panopticon-confirm-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.panopticon-confirm-cancel {
+  background: var(--pan-surface);
+  border: 1px solid var(--pan-border);
+  color: var(--pan-silver);
+  padding: 6px 12px;
+  font-size: 11px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.panopticon-confirm-cancel:hover {
+  border-color: var(--pan-silver-dim);
+}
+
+.panopticon-confirm-delete {
+  background: var(--pan-danger);
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.panopticon-confirm-delete:hover {
+  background: #d46b6b;
+}
+
+.panopticon-confirm-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0;
+  color: #c8b8a8;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.panopticon-confirm-checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* ============================================
+   Lightbox
+   ============================================ */
+.panopticon-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 15, 10, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  cursor: pointer;
+  padding: 40px;
+}
+
+.panopticon-lightbox img {
+  max-width: 100%;
+  max-height: calc(100% - 40px);
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.panopticon-lightbox-filename {
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--pan-silver-dim);
+}
+
+/* ============================================
+   Link Modal
+   ============================================ */
+.panopticon-link-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 15, 10, 0.85);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 100px;
+  z-index: 1150;
+}
+
+.panopticon-link-modal {
+  width: 320px;
+  max-height: 400px;
+  background: var(--content-bg-end, #3d221a);
+  border: 1px solid var(--pan-border);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.panopticon-link-modal-header {
+  padding: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--pan-silver);
+  border-bottom: 1px solid var(--pan-border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panopticon-link-modal-count {
+  font-size: 10px;
+  color: var(--pan-silver-dim);
+  font-weight: 400;
+}
+
+.panopticon-link-modal-search {
+  padding: 8px;
+  border-bottom: 1px solid var(--pan-border);
+}
+
+.panopticon-link-modal-search input {
+  width: 100%;
+  background: var(--pan-surface);
+  border: 1px solid var(--pan-border);
+  color: var(--pan-silver);
+  padding: 8px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.panopticon-link-modal-search input::placeholder {
+  color: var(--pan-silver-dim);
+}
+
+.panopticon-link-modal-search input:focus {
+  outline: none;
+  border-color: var(--pan-blue);
+}
+
+.panopticon-link-modal-results {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+.panopticon-link-modal-empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--pan-silver-dim);
+  font-size: 12px;
+}
+
+.panopticon-link-modal-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.panopticon-link-modal-item:hover {
+  background: var(--pan-surface);
+}
+
+.panopticon-link-modal-item.selected {
+  background: var(--pan-accent-dim);
+}
+
+.panopticon-link-modal-item-name {
+  font-size: 12px;
+  color: var(--pan-silver);
+}
+
+.panopticon-link-modal-item-artist {
+  font-size: 10px;
+  color: var(--pan-silver-dim);
+}
+
+/* ============================================
+   List View
+   ============================================ */
+.panopticon-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.panopticon-list-empty {
+  text-align: center;
+  padding: 32px;
+  color: var(--pan-silver-dim);
+  font-size: 12px;
+}
+
+.panopticon-list-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  padding-right: 20px; /* Extra clearance for scrollbar */
+  border-bottom: 1px solid var(--pan-border);
+  background: rgba(0, 0, 0, 0.2); /* Match header contrast */
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.panopticon-list-header .panopticon-list-col {
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--pan-silver-dim);
+}
+
+.panopticon-list-header .panopticon-list-col.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s ease;
+}
+
+.panopticon-list-header .panopticon-list-col.sortable:hover {
+  color: var(--pan-silver);
+}
+
+.panopticon-sort-indicator {
+  font-size: 8px;
+  margin-left: 4px;
+  color: var(--pan-blue);
+}
+
+.panopticon-list-row {
+  display: flex;
+  align-items: center;
+  padding: 3px 8px;
+  padding-right: 20px; /* Extra clearance for scrollbar */
+  border-bottom: 1px solid var(--pan-border);
+  cursor: grab;
+  transition: background 0.15s ease;
+}
+
+.panopticon-list-row:active {
+  cursor: grabbing;
+}
+
+.panopticon-list-row:hover {
+  background: var(--pan-surface);
+}
+
+.panopticon-list-row.selected {
+  background: var(--pan-accent-dim);
+}
+
+.panopticon-list-row.selected:hover {
+  background: var(--pan-accent-glow);
+}
+
+.panopticon-list-row.stray {
+  opacity: 0.5;
+}
+
+.panopticon-list-row.stray:hover {
+  opacity: 0.8;
+}
+
+/* Linked highlighting for list view */
+.panopticon-list-row.linked {
+  box-shadow: inset 2px 0 0 rgba(168, 152, 128, 0.6);
+}
+
+.panopticon-list-row.linked:not(.selected) {
+  background: rgba(168, 152, 128, 0.08);
+}
+
+/* Column widths */
+.panopticon-list-col {
+  flex-shrink: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 11px;
+  color: var(--pan-silver);
+}
+
+.panopticon-list-col-thumb {
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panopticon-list-col-filename {
+  flex: 1;
+  min-width: 120px;
+  padding-right: 12px;
+}
+
+.panopticon-list-col-artist {
+  width: 120px;
+  color: var(--pan-silver-dim);
+  font-size: 10px;
+  padding-right: 12px;
+}
+
+.panopticon-list-col-type {
+  width: 60px;
+  color: var(--pan-silver-dim);
+  font-size: 10px;
+}
+
+.panopticon-list-col-size {
+  width: 70px;
+  color: var(--pan-silver-dim);
+  font-family: 'SF Mono', SFMono-Regular, Consolas, monospace;
+  font-size: 10px;
+}
+
+.panopticon-list-col-linked {
+  width: 80px;
+  color: var(--pan-silver-dim);
+  font-size: 10px;
+}
+
+.panopticon-list-col-added {
+  width: 80px;
+  color: var(--pan-silver-dim);
+  font-size: 10px;
+}
+
+/* List thumbnail - compact for list view */
+.panopticon-list-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--pan-surface);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.panopticon-list-thumb img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+.panopticon-list-thumb-placeholder {
+  font-size: 10px;
+  color: var(--pan-silver-dim);
+}
+
+/* ============================================
+   Induction Mode
+   ============================================ */
+.panopticon-induction {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.panopticon-induction-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--pan-accent);
+  background: var(--pan-accent-dim);
+}
+
+.panopticon-induction-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.panopticon-induction-label {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--pan-accent);
+}
+
+.panopticon-abort-btn {
+  background: transparent;
+  border: 1px solid var(--pan-danger);
+  color: var(--pan-danger);
+  padding: 6px 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.panopticon-abort-btn:hover {
+  background: rgba(139, 77, 77, 0.2);
+}
+
+.panopticon-skip-btn {
+  background: transparent;
+  border: 1px solid var(--pan-text-dim);
+  color: var(--pan-text-dim);
+  padding: 6px 12px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.panopticon-skip-btn:hover {
+  border-color: var(--pan-accent);
+  color: var(--pan-accent);
+}
+
+.panopticon-induction-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.panopticon-induction-left,
+.panopticon-induction-right {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.panopticon-induction-left {
+  border-right: 1px solid var(--pan-border);
+}
+
+.panopticon-induction-section {
+  margin-bottom: 20px;
+}
+
+.panopticon-induction-section-title {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--pan-silver-dim);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.panopticon-induction-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.panopticon-induction-image {
+  width: 80px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: all 0.15s ease;
+}
+
+.panopticon-induction-image:hover {
+  border-color: var(--pan-silver-dim);
+}
+
+.panopticon-induction-image.selected {
+  border-color: var(--pan-accent);
+  box-shadow: 0 0 8px var(--pan-accent-glow);
+}
+
+.panopticon-induction-image img {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+  display: block;
+}
+
+.panopticon-induction-image-name {
+  display: block;
+  font-size: 9px;
+  color: var(--pan-silver-dim);
+  padding: 4px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.panopticon-induction-tracks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.panopticon-induction-track-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  background: var(--pan-surface);
+  border-radius: 3px;
+  font-size: 11px;
+}
+
+.panopticon-induction-track-num {
+  color: var(--pan-silver-dim);
+  width: 24px;
+  text-align: right;
+}
+
+.panopticon-induction-track-title {
+  flex: 1;
+  color: var(--pan-silver);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.panopticon-induction-track-duration {
+  color: var(--pan-silver-dim);
+  font-family: 'SF Mono', SFMono-Regular, Consolas, monospace;
+  font-size: 10px;
+}
+
+.panopticon-induction-empty {
+  color: var(--pan-silver-dim);
+  font-size: 11px;
+  font-style: italic;
+  padding: 12px;
+}
+
+/* Induction Form Fields */
+.panopticon-induction-field {
+  margin-bottom: 12px;
+}
+
+.panopticon-induction-field label {
+  display: block;
+  font-size: 10px;
+  color: var(--pan-silver-dim);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.panopticon-induction-field input {
+  width: 100%;
+  background: var(--pan-surface);
+  border: 1px solid var(--pan-border);
+  color: var(--pan-silver);
+  padding: 8px 10px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.panopticon-induction-field input:focus {
+  outline: none;
+  border-color: var(--pan-blue);
+}
+
+.panopticon-induction-field input:disabled {
+  opacity: 0.5;
+}
+
+.panopticon-induction-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.panopticon-induction-checkbox input[type="checkbox"] {
+  accent-color: var(--pan-blue);
+}
+
+.panopticon-induction-checkbox label {
+  font-size: 11px;
+  color: var(--pan-silver);
+  cursor: pointer;
+}
+
+/* Cover Preview */
+.panopticon-induction-cover-preview {
+  width: 150px;
+  height: 150px;
+  background: var(--pan-surface);
+  border: 1px solid var(--pan-border);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.panopticon-induction-cover-preview img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.panopticon-induction-no-cover {
+  font-size: 11px;
+  color: var(--pan-silver-dim);
+  font-style: italic;
+}
+
+.panopticon-induction-cover-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.panopticon-browse-cover-btn {
+  background: transparent;
+  border: 1px solid var(--pan-border);
+  color: var(--pan-silver);
+  padding: 4px 12px;
+  font-size: 11px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.panopticon-browse-cover-btn:hover {
+  background: var(--pan-surface);
+  border-color: var(--pan-silver-dim);
+}
+
+.panopticon-induction-cover-hint {
+  font-size: 10px;
+  color: var(--pan-silver-dim);
+  font-style: italic;
+}
+
+/* Induction Footer */
+.panopticon-induction-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-top: 1px solid var(--pan-border);
+}
+
+.panopticon-cancel-btn {
+  background: transparent;
+  border: 1px solid var(--pan-border);
+  color: var(--pan-silver-dim);
+  padding: 8px 16px;
+  font-size: 11px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.panopticon-cancel-btn:hover {
+  border-color: var(--pan-silver-dim);
+  color: var(--pan-silver);
+}
+
+.panopticon-deposit-action-btn {
+  background: var(--pan-accent-dim);
+  border: 1px solid var(--pan-accent);
+  color: var(--pan-accent);
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.panopticon-deposit-action-btn:hover:not(:disabled) {
+  background: var(--pan-accent-glow);
+  box-shadow: 0 0 12px var(--pan-accent-glow);
+}
+
+.panopticon-deposit-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ============================================
+   Drop Zone Overlay
+   ============================================ */
+.panopticon-dropzone {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 15, 10, 0.92);
+  z-index: 1300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  animation: dropzone-fade-in 0.15s ease-out;
+}
+
+@keyframes dropzone-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.panopticon-dropzone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.panopticon-dropzone .panopticon-eye {
+  width: 120px;
+  height: 80px;
+  animation: dropzone-eye-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes dropzone-eye-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 20px var(--pan-accent-glow));
+  }
+  50% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 40px var(--pan-accent));
+  }
+}
+
+.panopticon-dropzone-text {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pan-accent);
+  text-shadow: 0 0 20px var(--pan-accent-glow);
+}
+
+/* ============================================
+   Single Track Induction
+   ============================================ */
+.panopticon-single-track-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 60px;
+  max-width: 600px;
+  margin: 0 auto;
+  gap: 24px;
+}
+
+.panopticon-single-track-info {
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--pan-border);
+}
+
+.panopticon-single-track-filename {
+  font-size: 16px;
+  color: var(--pan-text);
+  margin-bottom: 8px;
+}
+
+.panopticon-single-track-detected {
+  font-size: 13px;
+  color: var(--pan-text-dim);
+  font-style: italic;
+}
+
+.panopticon-single-track-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panopticon-single-track-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--pan-text);
+}
+
+.panopticon-single-track-option input[type="radio"] {
+  accent-color: var(--pan-accent);
+  width: 16px;
+  height: 16px;
+}
+
+.panopticon-single-track-option-label {
+  font-weight: 500;
+}
+
+.panopticon-single-track-search {
+  margin-left: 26px;
+  margin-top: 8px;
+}
+
+.panopticon-single-track-search-input {
+  width: 100%;
+  padding: 8px 12px;
+  background: var(--pan-surface);
+  border: 1px solid var(--pan-border);
+  border-radius: 4px;
+  color: var(--pan-text);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.panopticon-single-track-search-input:focus {
+  outline: none;
+  border-color: var(--pan-accent);
+}
+
+.panopticon-single-track-results {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid var(--pan-border);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.panopticon-single-track-result {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--pan-border);
+  transition: background 0.15s ease;
+}
+
+.panopticon-single-track-result:last-child {
+  border-bottom: none;
+}
+
+.panopticon-single-track-result:hover {
+  background: var(--pan-surface);
+}
+
+.panopticon-single-track-result.selected {
+  background: var(--pan-accent-dim);
+}
+
+.panopticon-single-track-result-title {
+  font-size: 13px;
+  color: var(--pan-text);
+}
+
+.panopticon-single-track-result-artist {
+  font-size: 12px;
+  color: var(--pan-text-dim);
+}
+
+.panopticon-single-track-no-results {
+  padding: 16px;
+  text-align: center;
+  color: var(--pan-text-muted);
+  font-size: 13px;
+  font-style: italic;
+}
+
+.panopticon-single-track-form {
+  margin-left: 26px;
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ============================================
+   Multi-Album Split View
+   ============================================ */
+.panopticon-multi-album-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 40px 60px;
+  max-width: 700px;
+  margin: 0 auto;
+  gap: 24px;
+}
+
+.panopticon-multi-album-intro {
+  font-size: 15px;
+  color: var(--pan-text);
+  text-align: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--pan-border);
+}
+
+.panopticon-multi-album-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  border: 1px solid var(--pan-border);
+}
+
+.panopticon-multi-album-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--pan-surface);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.panopticon-multi-album-item:hover {
+  background: var(--pan-accent-dim);
+}
+
+.panopticon-multi-album-item input[type="checkbox"] {
+  accent-color: var(--pan-accent);
+  width: 16px;
+  height: 16px;
+}
+
+.panopticon-multi-album-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--pan-text);
+}
+
+.panopticon-multi-album-artist {
+  font-size: 13px;
+  color: var(--pan-text-dim);
+  margin-left: auto;
+}
+
+.panopticon-multi-album-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--pan-border);
+}
+
+.panopticon-multi-album-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--pan-text);
+}
+
+.panopticon-multi-album-option input[type="radio"] {
+  accent-color: var(--pan-accent);
+  width: 16px;
+  height: 16px;
+}
+
+.panopticon-multi-album-option-label {
+  font-weight: 500;
+}
+
+/* ============================================
+   Text Ephemera in Induction View
+   ============================================ */
+.panopticon-induction-section-hint {
+  font-size: 11px;
+  font-weight: normal;
+  color: var(--pan-text-dim);
+  margin-left: 8px;
+}
+
+.panopticon-induction-text-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.panopticon-induction-text-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: var(--pan-surface);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.panopticon-induction-text-item:hover {
+  background: var(--pan-accent-dim);
+}
+
+.panopticon-induction-text-item input[type="checkbox"] {
+  accent-color: var(--pan-accent);
+  width: 14px;
+  height: 14px;
+}
+
+.panopticon-induction-text-name {
+  flex: 1;
+  font-size: 12px;
+  color: var(--pan-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.panopticon-induction-text-type {
+  font-size: 10px;
+  color: var(--pan-text-muted);
+  text-transform: uppercase;
+  padding: 2px 6px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+/* ============================================
+   Induction Summary View
+   The unified entry point showing what's about to be inducted
+   ============================================ */
+.induction-summary {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.induction-summary-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 60px;
+  overflow-y: auto;
+  gap: 32px;
+}
+
+/* Summary stats - big numbers */
+.induction-summary-stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+}
+
+.induction-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.induction-stat-value {
+  font-size: 48px;
+  font-weight: 300;
+  color: var(--pan-accent);
+  line-height: 1;
+  text-shadow: 0 0 20px var(--pan-accent-glow);
+}
+
+.induction-stat-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--pan-text-dim);
+}
+
+/* Warnings section */
+.induction-summary-warnings {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.induction-warning {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.induction-warning.duplicate-warning {
+  background: rgba(212, 132, 58, 0.15);
+  border: 1px solid rgba(212, 132, 58, 0.3);
+  color: var(--pan-accent);
+}
+
+.induction-warning.stray-warning {
+  background: rgba(168, 152, 128, 0.1);
+  border: 1px solid rgba(168, 152, 128, 0.25);
+  color: var(--pan-text-dim);
+}
+
+.induction-warning-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.induction-warning-text {
+  line-height: 1.4;
+}
+
+/* Record list preview */
+.induction-summary-records {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 4px;
+}
+
+.induction-record-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--pan-surface);
+  border-radius: 6px;
+  transition: background 0.15s ease;
+}
+
+.induction-record-preview:hover {
+  background: var(--pan-accent-dim);
+}
+
+.induction-record-cover {
+  width: 48px;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.induction-record-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.induction-record-no-cover {
+  font-size: 20px;
+  color: var(--pan-text-muted);
+}
+
+.induction-record-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.induction-record-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--pan-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.induction-record-artist {
+  font-size: 12px;
+  color: var(--pan-text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.induction-record-tracks {
+  font-size: 11px;
+  color: var(--pan-text-muted);
+}
+
+/* Summary footer actions */
+.induction-summary-footer {
+  justify-content: space-between;
+}
+
+.induction-summary-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.panopticon-secondary-btn {
+  background: transparent;
+  border: 1px solid var(--pan-border);
+  color: var(--pan-text-dim);
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.panopticon-secondary-btn:hover {
+  border-color: var(--pan-text-dim);
+  color: var(--pan-text);
+}
+
+.trust-the-eye-btn {
+  min-width: 140px;
+}
+
+/* ============================================
+   Import v2 Overlay Styles
+   ============================================ */
+.panopticon-import-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.panopticon-import-modal {
+  background: var(--pan-bg);
+  border: 1px solid var(--pan-border);
+  border-radius: 8px;
+  padding: 32px 48px;
+  min-width: 300px;
+  max-width: 500px;
+  text-align: center;
+}
+
+.panopticon-import-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--pan-border);
+  border-top-color: var(--pan-accent);
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.panopticon-import-message {
+  font-size: 14px;
+  color: var(--pan-text);
+  margin-bottom: 12px;
+}
+
+.panopticon-import-progress {
+  height: 4px;
+  background: var(--pan-surface);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.panopticon-import-progress-fill {
+  height: 100%;
+  background: var(--pan-accent);
+  transition: width 0.3s ease;
+}
+
+/* Import Result Modal */
+.panopticon-import-result {
+  text-align: left;
+  padding: 0;
+}
+
+.panopticon-import-result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--pan-border);
+}
+
+.panopticon-import-result-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--pan-text);
+}
+
+.panopticon-import-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--pan-text-dim);
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+
+.panopticon-import-close:hover {
+  color: var(--pan-text);
+}
+
+.panopticon-import-result-content {
+  padding: 20px;
+}
+
+.panopticon-import-success {
+  color: #7a9f7a;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.panopticon-import-failure {
+  color: var(--pan-danger);
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.panopticon-import-error {
+  color: var(--pan-danger);
+  font-size: 13px;
+  padding: 12px;
+  background: rgba(139, 77, 77, 0.1);
+  border-radius: 4px;
+  margin-top: 12px;
+}
+
+.panopticon-import-errors {
+  margin-top: 12px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.panopticon-import-error-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--pan-border);
+  font-size: 12px;
+}
+
+.panopticon-import-error-item:last-child {
+  border-bottom: none;
+}
+
+.panopticon-import-error-item .file {
+  color: var(--pan-text);
+  font-weight: 500;
+}
+
+.panopticon-import-error-item .reason {
+  color: var(--pan-text-muted);
+}
+
+.panopticon-import-result-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--pan-border);
+  display: flex;
+  justify-content: flex-end;
+}

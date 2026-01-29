@@ -1,0 +1,329 @@
+/* SearchResultsView.css */
+
+/* SearchResultsView - content flows naturally, parent .view-container scrolls */
+.search-results-view {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-results-content {
+  padding: 24px;
+  padding-bottom: 40px;
+}
+
+/* Empty / Prompt States */
+.search-prompt,
+.search-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: var(--text-tertiary);
+  text-align: center;
+  gap: 16px;
+}
+
+.search-prompt-icon {
+  font-size: 48px;
+  opacity: 0.4;
+}
+
+.search-empty {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.search-empty-icon {
+  font-size: 24px;
+  animation: cricket-hop 0.6s ease-in-out infinite;
+}
+
+.search-empty-icon:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.search-empty-icon:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes cricket-hop {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.search-empty-text {
+  width: 100%;
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--text-tertiary);
+}
+
+/* Sections */
+.search-section {
+  margin-bottom: 32px;
+}
+
+.search-section:last-child {
+  margin-bottom: 0;
+}
+
+.search-section-header {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+/* Album Grid - Mini version */
+.search-album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 16px;
+}
+
+.search-album-card {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.search-album-card:hover {
+  transform: scale(1.03);
+}
+
+.search-album-cover {
+  aspect-ratio: 1;
+  background: var(--button-bg);
+  border: 1px solid var(--content-border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.search-album-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.search-album-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: var(--text-subtle);
+  opacity: 0.5;
+}
+
+.search-album-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.search-album-title {
+  font-size: 12px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-album-artist {
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Track List */
+.search-track-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.search-track-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--button-bg);
+  border: 1px solid var(--content-border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.search-track-item:hover {
+  background: var(--button-hover);
+  border-color: var(--accent-dim);
+}
+
+.search-track-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.search-track-title {
+  font-size: 13px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-track-artist {
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-track-album {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  text-align: right;
+}
+
+/* Facet List */
+.search-facet-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.search-facet-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-glow);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.search-facet-item:hover {
+  background: var(--button-hover);
+  border-color: var(--accent-primary);
+}
+
+.search-facet-name {
+  font-size: 12px;
+  color: var(--text-primary);
+}
+
+/* Cassette Grid - Cassette cards with covers */
+.search-mixtape-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.search-mixtape-card {
+  width: 80px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.search-mixtape-card:hover {
+  transform: translateY(-3px) scale(1.02);
+}
+
+.search-mixtape-cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1.6;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.search-mixtape-card:hover .search-mixtape-cover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.search-mixtape-cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.search-mixtape-name-pill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 70%, transparent 100%);
+  padding: 16px 6px 6px;
+}
+
+.search-mixtape-name {
+  font-size: 9px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+  text-align: center;
+}
+
+/* Program List */
+.search-program-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.search-program-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--button-bg);
+  border: 1px solid var(--content-border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.search-program-item:hover {
+  background: var(--button-hover);
+  border-color: var(--accent-dim);
+}
+
+.search-program-name {
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.search-program-modules {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}

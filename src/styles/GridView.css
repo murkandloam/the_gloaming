@@ -1,0 +1,306 @@
+/* Grid View - Album Browsing */
+.grid-view {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Grid Content - scrollable area above options bar */
+.grid-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 12px 16px;
+  padding-bottom: 20px;
+}
+
+/* Album Grid - dynamic sizing via CSS variable */
+.album-grid {
+  --album-size: 180px; /* default, overridden by JS */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--album-size), 1fr));
+  gap: 16px;
+  align-content: start;
+}
+
+/* Album Group with separator header */
+.album-group {
+  margin-bottom: 32px;
+}
+
+.album-group:last-child {
+  margin-bottom: 0;
+}
+
+.album-group-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-light, rgba(107, 84, 68, 0.3));
+}
+
+.album-group-title {
+  font-family: var(--font-family);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--text-primary, #e8dcc8);
+  letter-spacing: 0.02em;
+}
+
+.album-group-count {
+  font-size: 11px;
+  color: var(--text-tertiary, #8b7355);
+  padding: 2px 8px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.album-group-roam {
+  margin-left: auto;
+  padding: 4px 10px;
+  background: var(--glass-bg, rgba(26, 13, 8, 0.9));
+  border: 1px solid var(--accent-glow, rgba(212, 132, 58, 0.4));
+  border-radius: 4px;
+  color: var(--accent-primary, #d4843a);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.album-group-header:hover .album-group-roam {
+  opacity: 1;
+}
+
+.album-group-roam:hover {
+  background: rgba(212, 132, 58, 0.15);
+  border-color: rgba(212, 132, 58, 0.6);
+  box-shadow: 0 0 8px rgba(212, 132, 58, 0.2);
+}
+
+/* Distinguished groups (Compilations, Soundtracks, etc.) */
+.album-group.distinguished {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px dashed var(--border-medium, rgba(139, 115, 85, 0.4));
+}
+
+.album-group.distinguished .album-group-header {
+  border-bottom-style: dashed;
+}
+
+.album-group.distinguished .album-group-title {
+  font-style: italic;
+  color: var(--text-secondary, #a89880);
+}
+
+/* Album Card - no wiggle */
+.album-card {
+  cursor: pointer;
+}
+
+/* Album Cover */
+.album-cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #1a0d08;
+  border: 1px solid rgba(107, 84, 68, 0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.album-cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.album-cover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.15) 0%, 
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0) 70%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.album-card:hover .album-cover::before {
+  opacity: 1;
+}
+
+.album-cover-placeholder {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, #3a2418 0%, #1a0d08 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  color: #4a3428;
+  opacity: 0.5;
+}
+
+/* Loading state */
+.grid-loading,
+.grid-error,
+.grid-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #8b7355;
+  font-size: 14px;
+  gap: 8px;
+}
+
+.grid-error {
+  color: #d4843a;
+}
+
+.grid-empty-icon {
+  font-size: 64px;
+  margin-bottom: 12px;
+  opacity: 0.6;
+}
+
+.grid-empty-eye {
+  width: 80px;
+  height: auto;
+  margin-bottom: 16px;
+  opacity: 0.5;
+  filter: drop-shadow(0 0 20px var(--accent-glow, rgba(212, 132, 58, 0.3)));
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+/* The Eye awakens when dragging over */
+.grid-view:has(.grid-dropzone) .grid-empty-eye {
+  opacity: 0;
+}
+
+.grid-empty-title {
+  font-family: var(--font-family);
+  font-size: 20px;
+  color: #a89880;
+}
+
+.grid-empty-hint {
+  font-size: 13px;
+  color: #6b5444;
+  margin-top: 4px;
+}
+
+/* No search results */
+.grid-no-results {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: var(--text-tertiary, #8b7355);
+  font-size: 14px;
+  font-style: italic;
+}
+
+/* Album Label Overlay */
+.album-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px 10px;
+  background: rgba(10, 6, 4, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 2;
+}
+
+.album-label-title {
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary, #e8dcc8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.album-label-artist {
+  font-size: 10px;
+  color: var(--text-secondary, #a89880);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+/* Drop Zone Overlay - The Eye watches during drag */
+.grid-dropzone {
+  position: absolute;
+  inset: 0;
+  background: rgba(26, 15, 10, 0.92);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  animation: grid-dropzone-fade-in 0.15s ease-out;
+}
+
+@keyframes grid-dropzone-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.grid-dropzone-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.grid-dropzone-eye {
+  width: 100px;
+  height: auto;
+  animation: grid-dropzone-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes grid-dropzone-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 20px var(--accent-glow, rgba(212, 132, 58, 0.6)));
+  }
+  50% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 40px var(--accent-primary, #d4843a));
+  }
+}
+
+.grid-dropzone-text {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-primary, #d4843a);
+  text-shadow: 0 0 20px var(--accent-glow, rgba(212, 132, 58, 0.5));
+}
+

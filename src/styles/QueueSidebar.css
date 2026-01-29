@@ -1,0 +1,385 @@
+/* Queue Sidebar - Left Side */
+.queue-sidebar {
+  width: 300px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-right: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+/* Control Module - Transport & Volume - compact to match Inspector search */
+.control-module {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.transport-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.transport-btn {
+  width: 28px;
+  height: 28px;
+  background: var(--button-bg);
+  border: 1px solid var(--button-border);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.transport-btn:hover {
+  background: var(--button-hover);
+  border-color: var(--accent-dim);
+}
+
+.transport-btn:active {
+  background: var(--button-bg);
+}
+
+.transport-btn.play-btn {
+  width: 28px;
+  height: 28px;
+  font-size: 10px;
+  background: var(--accent-dim);
+  border-color: var(--accent-glow);
+}
+
+.transport-btn.play-btn:hover {
+  background: var(--accent-glow);
+}
+
+/* Volume Slider - inline with transport */
+.volume-slider {
+  flex: 1;
+  min-width: 60px;
+  max-width: 100px;
+}
+
+.volume-slider input[type="range"] {
+  width: 100%;
+  height: 12px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+}
+
+.volume-slider input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: var(--button-bg);
+  border-radius: 2px;
+}
+
+.volume-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  margin-top: -4px;
+  background: var(--accent-primary);
+  border: 1px solid var(--accent-glow);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.volume-slider input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  background: var(--accent-glow);
+}
+
+/* Tabs - matching Inspector style */
+.queue-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.queue-tab {
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.queue-tab:hover {
+  color: var(--text-secondary);
+  background: rgba(46, 24, 16, 0.2);
+}
+
+.queue-tab.active {
+  color: var(--accent-primary);
+  border-bottom-color: var(--accent-primary);
+  text-shadow: 0 0 6px var(--accent-glow);
+}
+
+/* Queue Actions - Clear / Undo */
+.queue-actions {
+  display: flex;
+  gap: 4px;
+  margin: 8px 12px 0;
+}
+
+.clear-queue-btn {
+  flex: 1;
+  padding: 4px 8px;
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-inactive);
+  background: none;
+  border: 1px solid var(--content-border);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.clear-queue-btn:hover:not(.disabled) {
+  color: var(--text-secondary);
+  border-color: var(--button-border);
+  background: var(--button-bg);
+}
+
+.clear-queue-btn.disabled {
+  color: var(--text-subtle);
+  border-color: var(--content-border);
+  cursor: not-allowed;
+}
+
+/* End Program state - accent colored when program is active */
+.clear-queue-btn.end-program {
+  color: var(--accent-primary);
+  background: var(--accent-dim);
+  border-color: var(--accent-glow);
+}
+
+.clear-queue-btn.end-program:hover {
+  background: var(--accent-primary);
+  color: var(--content-bg-start);
+}
+
+.undo-queue-btn {
+  width: 28px;
+  padding: 4px;
+  font-size: 12px;
+  color: var(--text-inactive);
+  background: none;
+  border: 1px solid var(--content-border);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.undo-queue-btn:hover:not(.disabled) {
+  color: var(--accent-primary);
+  border-color: var(--accent-glow);
+  background: var(--button-bg);
+}
+
+.undo-queue-btn.disabled {
+  color: var(--text-subtle);
+  border-color: var(--content-border);
+  cursor: not-allowed;
+}
+
+/* Queue List */
+.queue-list {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 12px;
+}
+
+/* Queue Item - compact */
+.queue-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  margin-bottom: 4px;
+  background: var(--button-bg);
+  border: 1px solid var(--content-border);
+  border-radius: 3px;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+}
+
+.queue-item:hover {
+  background: var(--button-hover);
+  border-color: var(--button-border);
+}
+
+/* Drag handle */
+.queue-item-drag {
+  color: var(--text-inactive);
+  font-size: 18px;
+  letter-spacing: -3px;
+  cursor: grab;
+  opacity: 0.4;
+  transition: opacity 0.15s ease, color 0.15s ease;
+  user-select: none;
+  padding: 0 2px;
+}
+
+.queue-item:hover .queue-item-drag {
+  opacity: 0.8;
+}
+
+.queue-item-drag:hover {
+  opacity: 1;
+  color: var(--accent-primary);
+}
+
+.queue-item-drag:active {
+  cursor: grabbing;
+}
+
+/* Drag states */
+.queue-item.dragging {
+  opacity: 0.4;
+}
+
+/* Current track in queue */
+.queue-item.current {
+  background: var(--accent-bg);
+  border-color: var(--accent-primary);
+}
+
+/* Already played tracks (before current position) */
+.queue-item.played {
+  opacity: 0.5;
+}
+
+/* Drop indicator line */
+.queue-drop-indicator {
+  height: 2px;
+  background: var(--accent-primary);
+  margin: 0 6px;
+  border-radius: 1px;
+  box-shadow: 0 0 4px var(--accent-glow);
+}
+
+.queue-item-number {
+  font-size: 9px;
+  color: var(--text-inactive);
+  min-width: 12px;
+  text-align: center;
+}
+
+/* Album art thumbnail - smaller */
+.queue-item-art {
+  width: 28px;
+  height: 28px;
+  background: var(--button-bg);
+  border: 1px solid var(--content-border);
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.queue-item-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.queue-item-art-placeholder {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, var(--content-bg-end) 0%, var(--content-bg-start) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.queue-item-art-placeholder::after {
+  content: '♪';
+  font-size: 12px;
+  color: var(--text-subtle);
+  opacity: 0.5;
+}
+
+.queue-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.queue-item-title {
+  font-size: 10px;
+  color: var(--text-primary);
+  margin-bottom: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.queue-item-artist {
+  font-size: 9px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.queue-item-remove {
+  width: 16px;
+  height: 16px;
+  background: var(--button-bg);
+  border: 1px solid var(--button-border);
+  border-radius: 2px;
+  color: var(--accent-primary);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s ease, background 0.15s ease;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.queue-item:hover .queue-item-remove {
+  opacity: 1;
+}
+
+.queue-item-remove:hover {
+  background: rgba(212, 132, 58, 0.2);
+  border-color: rgba(212, 132, 58, 0.6);
+}
+
+/* Empty State */
+.queue-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #6b5444;
+  font-size: 11px;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}

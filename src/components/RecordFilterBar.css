@@ -1,0 +1,105 @@
+/**
+ * RecordFilterBar - Panopticon-style filter bar for Records grid
+ *
+ * Uses the same visual language as the Panopticon filter bar:
+ * - Rounded pill buttons with thin borders
+ * - Blue glow on active state
+ * - Dropdown for SOME multi-select
+ */
+
+.record-filter-bar {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--content-border, rgba(107, 84, 68, 0.4));
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.record-filter-pills {
+  display: flex;
+  gap: 4px;
+}
+
+.record-filter-pill {
+  background: transparent;
+  border: 1px solid var(--content-border, rgba(107, 84, 68, 0.4));
+  color: var(--text-secondary, #a89880);
+  padding: 4px 10px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.record-filter-pill:hover {
+  border-color: var(--text-secondary, #a89880);
+  color: var(--text-primary, #e8dcc8);
+}
+
+.record-filter-pill.active {
+  background: rgba(126, 184, 230, 0.15);
+  border-color: var(--accent-primary, #7eb8e6);
+  color: var(--accent-primary, #7eb8e6);
+  box-shadow: 0 0 8px rgba(126, 184, 230, 0.25);
+}
+
+/* Wrapper for SOME pill with dropdown */
+.record-filter-pill-wrapper {
+  position: relative;
+}
+
+/* SOME dropdown */
+.record-filter-some-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  background: var(--content-bg-end, #3d221a);
+  border: 1px solid var(--content-border, rgba(107, 84, 68, 0.4));
+  border-radius: 6px;
+  padding: 8px 0;
+  min-width: 140px;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.record-filter-some-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  font-size: 11px;
+  color: var(--text-primary, #e8dcc8);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.record-filter-some-option:hover {
+  background: var(--button-bg, rgba(107, 84, 68, 0.4));
+}
+
+.record-filter-some-option input[type="checkbox"] {
+  accent-color: var(--accent-primary, #7eb8e6);
+  width: 14px;
+  height: 14px;
+}
+
+/* Divider between sections in dropdown */
+.record-filter-some-divider {
+  height: 1px;
+  background: var(--content-border, rgba(107, 84, 68, 0.4));
+  margin: 6px 0;
+}
+
+/* Invisible pill - subtle styling */
+.record-filter-pill.invisible-pill {
+  opacity: 0.7;
+}
+
+.record-filter-pill.invisible-pill:hover,
+.record-filter-pill.invisible-pill.active {
+  opacity: 1;
+}

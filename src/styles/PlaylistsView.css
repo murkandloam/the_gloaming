@@ -1,0 +1,43 @@
+/* Tags View */
+.tags-view {
+  padding: 40px;
+  color: #e8dcc8;
+}
+
+.tags-view h2 {
+  margin-bottom: 20px;
+  color: #ff6b35;
+}
+
+/* Playlists View */
+.playlists-view {
+  padding: 40px;
+  color: #e8dcc8;
+}
+
+.playlists-view h2 {
+  margin-bottom: 20px;
+  color: #ff6b35;
+}
+
+/* Charts View */
+.charts-view {
+  padding: 40px;
+  color: #e8dcc8;
+}
+
+.charts-view h2 {
+  margin-bottom: 20px;
+  color: #ff6b35;
+}
+
+/* Configuration View */
+.configuration-view {
+  padding: 40px;
+  color: #e8dcc8;
+}
+
+.configuration-view h2 {
+  margin-bottom: 20px;
+  color: #ff6b35;
+}

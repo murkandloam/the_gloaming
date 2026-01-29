@@ -1,0 +1,74 @@
+/* ContextMenu.css - Right-click context menu styling */
+
+.context-menu {
+  position: fixed;
+  background: rgba(20, 15, 12, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(139, 115, 85, 0.5);
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  min-width: 200px;
+  padding: 6px 0;
+  font-family: 'Baskerville', Georgia, serif;
+  font-size: 11px;
+  color: #e8dcc8;
+  z-index: 9999;
+  /* Prevent text selection */
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.context-menu-item {
+  padding: 2px 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.1s ease;
+}
+
+.context-menu-item:hover {
+  background: rgba(212, 132, 58, 0.2);
+}
+
+.context-menu-item.danger {
+  color: #e8a0a0;
+}
+
+.context-menu-item.danger:hover {
+  background: rgba(232, 160, 160, 0.15);
+}
+
+.context-menu-item.disabled {
+  color: #6b5444;
+  cursor: default;
+}
+
+.context-menu-item.disabled:hover {
+  background: transparent;
+}
+
+.context-menu-separator {
+  height: 1px;
+  background: rgba(139, 115, 85, 0.3);
+  margin: 6px 0;
+}
+
+.context-menu-label {
+  flex: 1;
+}
+
+.context-menu-suffix {
+  color: #8b7355;
+  margin-left: 12px;
+  font-size: 11px;
+}
+
+/* Keyboard shortcut hints (future use) */
+.context-menu-shortcut {
+  color: #6b5444;
+  margin-left: 24px;
+  font-size: 11px;
+  font-family: 'SF Mono', 'Monaco', monospace;
+}

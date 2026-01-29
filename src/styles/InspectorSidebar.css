@@ -1,0 +1,600 @@
+/* Inspector Sidebar - Right Side */
+.inspector-sidebar {
+  width: 300px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-left: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  position: relative;
+  transition: border-color 0.2s ease;
+}
+
+/* Drag-over state for attachment drops */
+.inspector-sidebar.drag-over {
+  border-left-color: var(--accent-primary);
+}
+
+.inspector-sidebar.drag-over::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(196, 147, 95, 0.1) 0%,
+    rgba(196, 147, 95, 0.05) 100%
+  );
+  pointer-events: none;
+  z-index: 100;
+}
+
+.inspector-sidebar.drag-over::after {
+  content: 'Drop to Attach';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 12px 24px;
+  background: rgba(20, 15, 12, 0.95);
+  border: 1px solid var(--accent-primary);
+  border-radius: 8px;
+  color: var(--accent-primary);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  z-index: 101;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Search Bar */
+.inspector-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.inspector-search .search-icon {
+  position: absolute;
+  left: 26px;
+  font-size: 14px;
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+
+.inspector-search .search-input {
+  width: 100%;
+  padding: 8px 32px 8px 32px;
+  background: var(--button-bg);
+  border: 1px solid var(--button-border);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.inspector-search .search-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.inspector-search .search-input:focus {
+  border-color: var(--accent-primary);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.inspector-search .search-clear {
+  position: absolute;
+  right: 24px;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  background: var(--text-tertiary);
+  border: none;
+  border-radius: 50%;
+  color: var(--content-bg-end);
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.inspector-search .search-clear:hover {
+  background: var(--text-secondary);
+}
+
+/* Inspector Tabs */
+.inspector-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.inspector-tab {
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+}
+
+.inspector-tab:hover {
+  color: var(--text-secondary);
+  background: rgba(46, 24, 16, 0.2);
+}
+
+.inspector-tab.active {
+  color: var(--accent-primary);
+  border-bottom-color: var(--accent-primary);
+  text-shadow: 0 0 6px var(--accent-glow);
+}
+
+/* Inspector Content */
+.inspector-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px;
+}
+
+/* Album Art */
+.inspector-album-art {
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--button-bg);
+  border: 1px solid var(--content-border);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  box-shadow: inset 0 2px 8px var(--glass-shadow);
+}
+
+.inspector-album-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.inspector-album-art-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  color: var(--text-subtle);
+  opacity: 0.5;
+  background: radial-gradient(circle at center, var(--content-bg-end) 0%, var(--content-bg-start) 100%);
+}
+
+/* Track Details */
+.inspector-section {
+  margin-bottom: 16px;
+}
+
+.inspector-title,
+.inspector-artist,
+.inspector-album {
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+}
+
+.inspector-title {
+  font-size: 14px;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.inspector-artist {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+.inspector-album {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+/* Scrolling text - always rendered, only animates with .scrolling class */
+.scroll-text {
+  display: inline-block;
+}
+
+.scrolling .scroll-text {
+  animation: scroll-marquee 20s linear infinite;
+}
+
+.scrolling .scroll-text::after {
+  content: ' • ' attr(data-text);
+  padding-left: 2em;
+}
+
+@keyframes scroll-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Metadata Grid */
+.metadata-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+}
+
+.metadata-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.metadata-label {
+  font-size: 9px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metadata-value {
+  font-size: 12px;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  color: var(--text-primary);
+}
+
+/* Facets List - Compact Pills */
+.facets-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.facet-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background: var(--button-bg);
+  border: 1px solid var(--button-border);
+  border-radius: 4px;
+  font-size: 11px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Color indicator for grouped facets */
+.facet-pill-color {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+}
+
+/* Colored facets get extra left padding */
+.facet-pill.has-color {
+  padding-left: 10px;
+}
+
+.facet-pill:hover {
+  background: var(--button-hover);
+  border-color: var(--text-tertiary);
+}
+
+.facet-remove {
+  color: var(--text-inactive);
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  opacity: 0;
+  transition: all 0.12s ease;
+}
+
+.facet-pill:hover .facet-remove {
+  opacity: 1;
+}
+
+.facet-remove:hover {
+  color: var(--error);
+}
+
+/* Add Facet Button */
+.add-facet-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  background: var(--button-bg);
+  border: 1px solid var(--button-border);
+  border-radius: 4px;
+  color: var(--text-tertiary);
+  font-size: 11px;
+  white-space: nowrap;
+  transition: all 0.12s ease;
+  cursor: pointer;
+}
+
+.add-facet-btn:hover {
+  background: var(--button-hover);
+  border-color: var(--accent-glow);
+  color: var(--accent-primary);
+}
+
+/* Section Headers */
+.section-header {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  text-align: center;
+  margin-bottom: 10px;
+  letter-spacing: 0.1em;
+}
+
+/* Add Buttons - reduced padding */
+.add-attachment-btn,
+.add-playlist-btn {
+  width: 100%;
+  padding: 8px;
+  background: var(--button-bg);
+  border: 1px solid var(--button-border);
+  border-radius: 3px;
+  color: var(--text-primary);
+  font-size: 11px;
+  text-align: center;
+  transition: background 0.15s ease;
+  cursor: pointer;
+}
+
+.add-attachment-btn:hover,
+.add-playlist-btn:hover {
+  background: var(--button-hover);
+}
+
+/* Attachments List */
+.attachments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.attachment-item {
+  padding: 6px 10px;
+  background: var(--button-bg);
+  border: 1px solid var(--content-border);
+  border-radius: 3px;
+  font-size: 11px;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.attachment-item:hover {
+  background: var(--button-hover);
+}
+
+/* Mixtapes List in Inspector */
+.inspector-mixtapes-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.inspector-mixtape-pill {
+  /* Mini cassette proportions (2.5:4 but smaller) */
+  position: relative;
+  width: 50px;
+  height: 80px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  /* Fallback gradient for transparent/missing cassette images */
+  background: linear-gradient(145deg, #2a1a12 0%, #1a0d08 100%);
+}
+
+.inspector-mixtape-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.inspector-mixtape-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Empty State */
+.inspector-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-inactive);
+  text-align: center;
+  padding: 24px;
+}
+
+.inspector-fortune {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.fortune-icon {
+  font-size: 32px;
+  opacity: 0.8;
+}
+
+.fortune-text {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+  max-width: 200px;
+}
+
+.inspector-empty-hint {
+  font-size: 11px;
+  color: var(--text-inactive);
+  margin: 0;
+}
+
+/* Action Buttons - Themed Style */
+.inspector-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  background: var(--action-btn-bg);
+  color: var(--action-btn-color);
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.inspector-action-btn:hover {
+  background: var(--action-btn-hover);
+}
+
+.inspector-action-btn:active {
+  transform: scale(0.98);
+}
+
+/* Action buttons row - [Open Sleeve][⚙] or [Play][+ Queue] */
+.inspector-actions-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+/* Source Button - "Presently Sourced From..." */
+.inspector-source-btn {
+  width: 100%;
+  padding: 6px 10px;
+  margin-bottom: 8px;
+  background: #1a0f0a; /* Opaque dark wood - vibrancy needs solid fill */
+  border: 1px solid var(--accent-primary);
+  border-radius: 4px;
+  color: var(--accent-primary);
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.inspector-source-btn:hover {
+  background: #2a1a12;
+}
+
+.inspector-actions-row .inspector-action-btn {
+  flex: 1;
+}
+
+/* Open Sleeve takes most space, gear is compact */
+.inspector-actions-row .open-sleeve-btn {
+  flex: 1;
+}
+
+.inspector-actions-row .manifest-btn {
+  flex: 0 0 auto;
+  width: 36px;
+  padding: 8px;
+  font-size: 14px;
+  background: var(--button-bg);
+  color: var(--text-secondary);
+  border: 1px solid var(--button-border);
+}
+
+.inspector-actions-row .manifest-btn:hover {
+  background: var(--button-hover);
+  color: var(--text-primary);
+}
+
+.inspector-actions-row .panopticon-btn {
+  flex: 0 0 auto;
+  width: 36px;
+  padding: 8px;
+  background: var(--glass-bg, rgba(26, 13, 8, 0.8));
+  border: 1px solid var(--accent-glow, rgba(212, 132, 58, 0.5));
+}
+
+.inspector-actions-row .panopticon-btn:hover {
+  background: var(--accent-dim, rgba(212, 132, 58, 0.15));
+  border-color: var(--accent-primary, #d4843a);
+}
+
+.inspector-actions-row .panopticon-eye-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+/* Legacy - remove if not used */
+.inspector-selected-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.inspector-selected-actions .inspector-action-btn {
+  flex: 1;
+}
+
+.play-btn {
+  background: var(--accent-primary);
+  color: var(--content-bg-start);
+}
+
+.play-btn:hover {
+  background: var(--accent-glow);
+}
+
+/* Programs Section Placeholder */
+.inspector-programs-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px;
+  color: var(--text-inactive, #6b5444);
+}
+
+.programs-placeholder-icon {
+  font-size: 20px;
+  opacity: 0.6;
+}
+
+.programs-placeholder-text {
+  font-size: 10px;
+  font-style: italic;
+}

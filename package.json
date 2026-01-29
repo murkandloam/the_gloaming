@@ -1,0 +1,88 @@
+{
+  "name": "the_gloaming",
+  "productName": "the_gloaming",
+  "version": "1.0.0",
+  "description": "Music is a place.",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "concurrently \"npm run dev\" \"wait-on http://localhost:3000 && NODE_ENV=development electron .\"",
+    "dev": "NODE_NO_WARNINGS=1 vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test-import": "node test-import.js",
+    "postinstall": "electron-rebuild",
+    "dist": "npm run build && electron-builder --mac --arm64",
+    "dist:dir": "npm run build && electron-builder --mac --arm64 --dir"
+  },
+  "keywords": [
+    "music",
+    "player",
+    "local-first",
+    "tags"
+  ],
+  "author": "Elara Murk",
+  "license": "MIT",
+  "build": {
+    "appId": "com.murkandloam.the-gloaming",
+    "productName": "the_gloaming",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "index.html",
+      "package.json",
+      "!**/.DS_Store",
+      "!**/node_modules/.cache"
+    ],
+    "extraResources": [
+      {
+        "from": "swift-audio/.build/arm64-apple-macosx/release/gloaming-audio",
+        "to": "gloaming-audio"
+      }
+    ],
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": "arm64"
+        }
+      ],
+      "icon": "assets/icon.icns",
+      "category": "public.app-category.music",
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "dmg": {
+      "title": "${productName}",
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.5.0",
+    "music-metadata": "^7.14.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sharp": "^0.34.5"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^4.0.2",
+    "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
+    "electron": "^28.0.0",
+    "electron-builder": "^26.4.0",
+    "vite": "^5.0.8",
+    "wait-on": "^7.2.0"
+  }
+}

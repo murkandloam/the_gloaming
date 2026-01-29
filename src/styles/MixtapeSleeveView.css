@@ -1,0 +1,1040 @@
+/* Mixtape Sleeve View */
+.mixtape-sleeve-view {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(180deg,
+    var(--content-bg-start, #1a0d08) 0%,
+    var(--content-bg-end, #2a1a10) 100%
+  );
+}
+
+.mixtape-sleeve-content {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 24px;
+  padding-bottom: 48px;
+}
+
+/* Back button - reuse from RecordSleeveView */
+.mixtape-sleeve-view .sleeve-back-btn {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 36px;
+  height: 36px;
+  background: var(--glass-bg, rgba(26, 13, 8, 0.8));
+  backdrop-filter: var(--glass-blur, blur(12px));
+  border: 1px solid var(--glass-border, rgba(107, 84, 68, 0.4));
+  border-radius: 4px;
+  color: var(--text-primary, #e8dcc8);
+  font-size: 24px;
+  font-weight: 300;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  z-index: 10;
+}
+
+.mixtape-sleeve-view .sleeve-back-btn:hover {
+  background: var(--button-hover, rgba(46, 24, 16, 0.6));
+  border-color: var(--button-border, rgba(107, 84, 68, 0.5));
+  color: var(--accent-primary, #d4843a);
+}
+
+/* Header layout */
+.mixtape-sleeve-header {
+  display: flex;
+  gap: 24px;
+  margin-top: 48px;
+  margin-bottom: 24px;
+}
+
+/* Mixtape cover in sleeve view */
+.mixtape-sleeve-cover {
+  width: 140px;
+  flex-shrink: 0;
+}
+
+.mixtape-sleeve-cover-image {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Info section */
+.mixtape-sleeve-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.mixtape-sleeve-title {
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--text-primary, #e8dcc8);
+  margin: 0 0 8px 0;
+  letter-spacing: 0.01em;
+}
+
+.mixtape-sleeve-description {
+  color: var(--text-secondary, #a89880);
+  font-size: 14px;
+  margin: 0 0 12px 0;
+  font-style: italic;
+}
+
+.mixtape-sleeve-meta {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-tertiary, #8b7355);
+}
+
+/* Action buttons */
+.mixtape-sleeve-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.mixtape-sleeve-view .sleeve-action-btn {
+  padding: 10px 20px;
+  background: var(--text-primary, #e8dcc8);
+  color: var(--content-bg-start, #1a0d08);
+  border: none;
+  border-radius: 4px;
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.mixtape-sleeve-view .sleeve-action-btn:hover {
+  opacity: 0.9;
+}
+
+.mixtape-sleeve-view .sleeve-action-btn.primary {
+  background: var(--accent-primary, #d4843a);
+  color: var(--text-primary, #e8dcc8);
+}
+
+.mixtape-sleeve-view .sleeve-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.mixtape-sleeve-view .sleeve-action-btn.roam {
+  background: var(--glass-bg, rgba(26, 13, 8, 0.8));
+  border: 1px solid var(--accent-glow, rgba(212, 132, 58, 0.5));
+  color: var(--accent-primary, #d4843a);
+}
+
+.mixtape-sleeve-view .sleeve-action-btn.roam:hover {
+  background: var(--accent-dim, rgba(212, 132, 58, 0.15));
+  border-color: var(--accent-primary, #d4843a);
+}
+
+.mixtape-sleeve-view .sleeve-action-btn.view-in-panopticon {
+  background: var(--glass-bg, rgba(26, 13, 8, 0.8));
+  border: 1px solid var(--accent-glow, rgba(212, 132, 58, 0.5));
+  color: var(--accent-primary, #d4843a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+}
+
+.mixtape-sleeve-view .sleeve-action-btn.view-in-panopticon:hover {
+  background: var(--accent-dim, rgba(212, 132, 58, 0.15));
+  border-color: var(--accent-primary, #d4843a);
+}
+
+.mixtape-sleeve-view .sleeve-action-btn.view-in-panopticon .panopticon-eye-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+/* Track list container */
+.mixtape-tracklist-container {
+  background: var(--glass-bg, rgba(26, 13, 8, 0.8));
+  backdrop-filter: var(--glass-blur, blur(12px)) saturate(120%);
+  border: 1px solid var(--glass-border, rgba(107, 84, 68, 0.4));
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Sort bar */
+.mixtape-sort-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--glass-border, rgba(107, 84, 68, 0.3));
+}
+
+.sort-pills {
+  display: flex;
+  gap: 8px;
+}
+
+.sort-pill {
+  padding: 4px 12px;
+  background: transparent;
+  border: 1px solid var(--button-border, rgba(107, 84, 68, 0.5));
+  border-radius: 12px;
+  color: var(--text-tertiary, #8b7355);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.sort-pill:hover {
+  background: var(--button-bg, rgba(46, 24, 16, 0.4));
+  color: var(--text-secondary, #a89880);
+}
+
+.sort-pill.active {
+  background: var(--accent-dim, rgba(212, 132, 58, 0.15));
+  border-color: var(--accent-glow, rgba(212, 132, 58, 0.4));
+  color: var(--accent-primary, #d4843a);
+}
+
+.save-order-btn {
+  padding: 6px 14px;
+  background: var(--accent-primary, #d4843a);
+  border: none;
+  border-radius: 4px;
+  color: var(--content-bg-start, #1a0d08);
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.save-order-btn:hover {
+  opacity: 0.9;
+}
+
+/* Empty tracks state */
+.mixtape-empty-tracks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: var(--text-tertiary, #8b7355);
+  font-size: 14px;
+  gap: 8px;
+}
+
+.mixtape-empty-hint {
+  font-size: 12px;
+  color: var(--text-inactive, #6b5444);
+}
+
+/* Track list - compact spreadsheet style */
+.mixtape-tracklist {
+  display: flex;
+  flex-direction: column;
+}
+
+.mixtape-track-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background 0.1s ease;
+  border-bottom: 1px solid rgba(107, 84, 68, 0.15);
+}
+
+.mixtape-track-row:last-child {
+  border-bottom: none;
+}
+
+.mixtape-track-row:hover {
+  background: var(--button-bg, rgba(46, 24, 16, 0.4));
+}
+
+.mixtape-track-row.dragging {
+  opacity: 0.5;
+  background: var(--accent-dim, rgba(212, 132, 58, 0.1));
+}
+
+.mixtape-track-row.drag-over {
+  border-top: 2px solid var(--accent-primary, #d4843a);
+}
+
+/* Drag handle */
+.track-drag-handle {
+  width: 16px;
+  color: var(--text-inactive, #6b5444);
+  cursor: grab;
+  font-size: 12px;
+  letter-spacing: -2px;
+  user-select: none;
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+.mixtape-track-row:hover .track-drag-handle {
+  opacity: 1;
+}
+
+.track-drag-handle:active {
+  cursor: grabbing;
+}
+
+.mixtape-track-row .track-number {
+  width: 24px;
+  text-align: right;
+  font-size: 12px;
+  color: var(--text-inactive, #6b5444);
+  flex-shrink: 0;
+}
+
+.track-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mixtape-track-row .track-title {
+  font-size: 13px;
+  color: var(--text-primary, #e8dcc8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-artist-album {
+  font-size: 11px;
+  color: var(--text-tertiary, #8b7355);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mixtape-track-row .track-duration {
+  width: 48px;
+  text-align: right;
+  font-size: 12px;
+  color: var(--text-tertiary, #8b7355);
+  flex-shrink: 0;
+}
+
+.mixtape-track-row .track-play-btn,
+.track-remove-btn {
+  width: 24px;
+  height: 24px;
+  background: var(--button-bg, rgba(46, 24, 16, 0.4));
+  border: 1px solid var(--button-border, rgba(107, 84, 68, 0.5));
+  border-radius: 3px;
+  color: var(--text-tertiary, #8b7355);
+  font-size: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.1s ease;
+  flex-shrink: 0;
+  opacity: 0;
+}
+
+.mixtape-track-row:hover .track-play-btn,
+.mixtape-track-row:hover .track-remove-btn {
+  opacity: 1;
+}
+
+.mixtape-track-row .track-play-btn:hover {
+  background: var(--accent-primary, #d4843a);
+  border-color: var(--accent-primary, #d4843a);
+  color: var(--content-bg-start, #1a0d08);
+}
+
+.track-remove-btn:hover {
+  background: #8b4d4d;
+  border-color: #8b4d4d;
+  color: var(--text-primary, #e8dcc8);
+}
+
+/* Drop indicator line */
+.mixtape-drop-indicator {
+  height: 2px;
+  background: var(--accent-primary, #d4843a);
+  margin: 0 16px;
+  border-radius: 1px;
+  box-shadow: 0 0 4px var(--accent-glow, rgba(212, 132, 58, 0.6));
+}
+
+/* Manifest Modal extras */
+.mixtape-manifest-modal {
+  min-width: 400px;
+}
+
+.modal-textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* Cassette picker in manifest */
+.manifest-cassette-picker {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cassette-picker-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cassette-nav-btn {
+  width: 32px;
+  height: 32px;
+  background: var(--button-bg, rgba(46, 24, 16, 0.4));
+  border: 1px solid var(--button-border, rgba(107, 84, 68, 0.5));
+  border-radius: 4px;
+  color: var(--text-tertiary, #8b7355);
+  font-size: 20px;
+  font-weight: 300;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.cassette-nav-btn:hover {
+  background: var(--button-hover, rgba(46, 24, 16, 0.6));
+  border-color: var(--accent-glow, rgba(212, 132, 58, 0.4));
+  color: var(--accent-primary, #d4843a);
+}
+
+.cassette-preview {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+}
+
+.cassette-preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.cassette-hint {
+  font-size: 11px;
+  color: var(--text-inactive, #6b5444);
+}
+
+.manifest-footer {
+  justify-content: space-between;
+}
+
+.manifest-footer-right {
+  display: flex;
+  gap: 12px;
+}
+
+.modal-btn-danger {
+  background: #6b3a3a;
+  border: 1px solid #8b4d4d;
+  color: var(--text-primary, #e8dcc8);
+}
+
+.modal-btn-danger:hover {
+  background: #8b4d4d;
+}
+
+/* Delete confirmation overlay */
+.delete-confirm-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.delete-confirm-content {
+  text-align: center;
+  padding: 24px;
+}
+
+.delete-confirm-content p {
+  margin: 0 0 8px 0;
+  color: var(--text-primary, #e8dcc8);
+}
+
+.delete-confirm-hint {
+  font-size: 12px;
+  color: var(--text-tertiary, #8b7355);
+}
+
+.delete-confirm-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+/* Top row: Cover + Ephemera box side by side */
+.mixtape-sleeve-view .sleeve-top-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  margin-top: 48px; /* Space for back button */
+}
+
+/* Main cassette cover - J-card proportions (taller than wide) */
+.mixtape-sleeve-view .sleeve-main-cover {
+  width: 180px;
+  height: 280px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.mixtape-sleeve-view .sleeve-main-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Ephemera box - wider to compensate for narrower cover */
+.mixtape-sleeve-view .sleeve-ephemera-box {
+  flex: 1;
+  min-width: 320px;
+  height: 280px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Ephemera box drag-over state */
+.mixtape-sleeve-view .sleeve-ephemera-box.drag-over {
+  border-color: var(--accent-primary, #d4843a);
+  box-shadow: 0 0 12px var(--accent-glow, rgba(212, 132, 58, 0.5));
+}
+
+.mixtape-sleeve-view .ephemera-box-header {
+  font-size: 11px;
+  color: var(--accent-primary, #d4843a);
+  text-align: center;
+  margin-bottom: 12px;
+  letter-spacing: 0.1em;
+}
+
+.mixtape-sleeve-view .ephemera-size-control {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+}
+
+.mixtape-sleeve-view .ephemera-size-slider {
+  width: 72px;
+  height: 4px;
+  appearance: none;
+  background: var(--glass-border, rgba(107, 84, 68, 0.4));
+  border-radius: 2px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.15s ease;
+}
+
+.mixtape-sleeve-view .ephemera-size-slider:hover {
+  opacity: 1;
+}
+
+.mixtape-sleeve-view .ephemera-size-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  background: var(--accent-primary, #d4843a);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.mixtape-sleeve-view .ephemera-scroll {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  overflow-y: auto;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  flex: 1;
+}
+
+.mixtape-sleeve-view .era-item {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--content-border, rgba(107, 84, 68, 0.4));
+  transition: all 0.15s ease;
+}
+
+.mixtape-sleeve-view .era-item:hover {
+  border-color: var(--accent-primary, #d4843a);
+  transform: scale(1.05);
+}
+
+.mixtape-sleeve-view .era-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mixtape-sleeve-view .era-item-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  color: var(--text-primary, #e8dcc8);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease, background 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mixtape-sleeve-view .era-item:hover .era-item-remove {
+  opacity: 1;
+}
+
+.mixtape-sleeve-view .era-item-remove:hover {
+  background: var(--accent-primary, #d4843a);
+}
+
+/* Add attachment button */
+.mixtape-sleeve-view .era-add-item {
+  background: var(--button-bg, rgba(46, 24, 16, 0.4));
+  border: 2px dashed var(--glass-border, rgba(107, 84, 68, 0.5));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mixtape-sleeve-view .era-add-item:hover {
+  border-color: var(--accent-primary, #d4843a);
+  background: var(--accent-dim, rgba(212, 132, 58, 0.15));
+}
+
+.mixtape-sleeve-view .era-add-icon {
+  font-size: 32px;
+  color: var(--text-tertiary, #8b7355);
+  transition: color 0.15s ease;
+}
+
+.mixtape-sleeve-view .era-add-item:hover .era-add-icon {
+  color: var(--accent-primary, #d4843a);
+}
+
+/* Action buttons row */
+.mixtape-sleeve-view .sleeve-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+/* Combined Mixtape Info + Track List Box */
+.mixtape-combined-box {
+  background: var(--glass-bg, rgba(26, 13, 8, 0.8));
+  backdrop-filter: var(--glass-blur, blur(12px)) saturate(120%);
+  border: 1px solid var(--glass-border, rgba(107, 84, 68, 0.4));
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.mixtape-combined-header {
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid var(--glass-border, rgba(107, 84, 68, 0.3));
+}
+
+.mixtape-combined-title {
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--text-primary, #e8dcc8);
+  margin: 0 0 6px 0;
+}
+
+.mixtape-combined-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--text-tertiary, #8b7355);
+}
+
+.mixtape-combined-description {
+  font-size: 13px;
+  color: var(--text-secondary, #a89880);
+  margin: 10px 0 0 0;
+}
+
+.mixtape-combined-facets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--glass-border, rgba(107, 84, 68, 0.3));
+}
+
+.mixtape-sleeve-view .album-facet-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--accent-dim, rgba(212, 132, 58, 0.15));
+  border: 1px solid var(--accent-glow, rgba(212, 132, 58, 0.4));
+  border-radius: 14px;
+  font-size: 12px;
+  color: var(--text-primary, #e8dcc8);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.mixtape-sleeve-view .album-facet-pill:hover {
+  background: var(--accent-dim, rgba(212, 132, 58, 0.25));
+  border-color: var(--accent-primary, #d4843a);
+}
+
+.mixtape-sleeve-view .album-facet-pill.shared-facet {
+  background: rgba(139, 115, 85, 0.2);
+  border-color: rgba(139, 115, 85, 0.5);
+  color: var(--text-secondary, #a89880);
+}
+
+.mixtape-sleeve-view .album-facet-pill.shared-facet:hover {
+  background: rgba(139, 115, 85, 0.3);
+}
+
+.mixtape-sleeve-view .album-facet-pill .facet-remove {
+  color: var(--accent-primary, #d4843a);
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+
+.mixtape-sleeve-view .album-facet-pill .facet-remove:hover {
+  color: var(--text-primary, #e8dcc8);
+}
+
+.mixtape-sleeve-view .add-album-facet-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  background: var(--button-bg, rgba(46, 24, 16, 0.4));
+  border: 1px solid var(--button-border, rgba(107, 84, 68, 0.5));
+  border-radius: 14px;
+  color: var(--text-tertiary, #8b7355);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.mixtape-sleeve-view .add-album-facet-btn:hover {
+  background: var(--button-hover, rgba(46, 24, 16, 0.6));
+  border-color: var(--accent-glow, rgba(212, 132, 58, 0.4));
+  color: var(--text-secondary, #a89880);
+}
+
+/* Mixtape Facets Section */
+.mixtape-facets-section {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: var(--glass-bg, rgba(26, 13, 8, 0.8));
+  backdrop-filter: var(--glass-blur, blur(12px)) saturate(120%);
+  border: 1px solid var(--glass-border, rgba(107, 84, 68, 0.4));
+  border-radius: 6px;
+}
+
+.mixtape-facets-header {
+  font-size: 11px;
+  color: var(--text-tertiary, #8b7355);
+  text-align: center;
+  margin-bottom: 12px;
+  letter-spacing: 0.1em;
+}
+
+.mixtape-facets-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.mixtape-facet-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background: var(--button-bg, rgba(46, 24, 16, 0.4));
+  border: 1px solid var(--button-border, rgba(107, 84, 68, 0.5));
+  border-radius: 4px;
+  font-size: 11px;
+  color: var(--text-primary, #e8dcc8);
+  cursor: default;
+  transition: all 0.12s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.mixtape-facet-pill.has-color {
+  padding-left: 10px;
+}
+
+.mixtape-facet-pill .facet-pill-color {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+}
+
+.mixtape-facet-pill:hover {
+  background: var(--button-hover, rgba(46, 24, 16, 0.6));
+  border-color: var(--text-tertiary);
+}
+
+.mixtape-facet-pill.clickable {
+  cursor: pointer;
+}
+
+.mixtape-facet-pill.clickable:hover {
+  background: var(--accent-dim, rgba(212, 132, 58, 0.25));
+  border-color: var(--accent-primary, #d4843a);
+}
+
+.mixtape-facet-pill.shared-facet {
+  background: rgba(139, 115, 85, 0.2);
+  border-color: rgba(139, 115, 85, 0.5);
+  color: var(--text-secondary, #a89880);
+}
+
+.mixtape-facet-pill.shared-facet:hover {
+  background: rgba(139, 115, 85, 0.3);
+}
+
+.mixtape-facet-pill .facet-remove {
+  color: var(--text-inactive);
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1;
+  opacity: 0;
+  transition: all 0.12s ease;
+}
+
+.mixtape-facet-pill:hover .facet-remove {
+  opacity: 1;
+}
+
+.mixtape-facet-pill .facet-remove:hover {
+  color: var(--error);
+}
+
+.add-mixtape-facet-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  background: var(--button-bg, rgba(46, 24, 16, 0.4));
+  border: 1px solid var(--button-border, rgba(107, 84, 68, 0.5));
+  border-radius: 4px;
+  color: var(--text-tertiary, #8b7355);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.add-mixtape-facet-btn:hover {
+  background: var(--button-hover, rgba(46, 24, 16, 0.6));
+  border-color: var(--accent-glow, rgba(212, 132, 58, 0.4));
+  color: var(--accent-primary);
+}
+
+/* Backdrop image support */
+.mixtape-sleeve-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.mixtape-sleeve-backdrop-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg,
+    rgba(26, 13, 8, 0.3) 0%,
+    rgba(26, 13, 8, 0.6) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+.mixtape-sleeve-view.has-backdrop {
+  background: transparent;
+}
+
+.mixtape-sleeve-view.has-backdrop .mixtape-sleeve-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Manifest backdrop controls */
+.mixtape-manifest-modal .manifest-divider {
+  height: 1px;
+  background: var(--glass-border, rgba(107, 84, 68, 0.4));
+  margin: 20px 0;
+}
+
+.mixtape-manifest-modal .manifest-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary, #8b7355);
+  margin-bottom: 12px;
+}
+
+.mixtape-manifest-modal .manifest-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-primary, #e8dcc8);
+  cursor: pointer;
+}
+
+.mixtape-manifest-modal .manifest-toggle-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent-primary, #d4843a);
+}
+
+.mixtape-manifest-modal .manifest-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mixtape-manifest-modal .manifest-blur-preview {
+  position: relative;
+  width: 100%;
+  height: 80px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border, rgba(107, 84, 68, 0.4));
+}
+
+.mixtape-manifest-modal .manifest-blur-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.15s ease;
+}
+
+.mixtape-manifest-modal .manifest-blur-preview-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 11px;
+  color: var(--text-secondary, #a89880);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.mixtape-manifest-modal .manifest-slider {
+  width: 100%;
+  height: 4px;
+  appearance: none;
+  background: var(--glass-border, rgba(107, 84, 68, 0.4));
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.mixtape-manifest-modal .manifest-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--accent-primary, #d4843a);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.mixtape-manifest-modal .blur-value {
+  font-size: 11px;
+  color: var(--text-tertiary, #8b7355);
+}
+
+.mixtape-manifest-modal .manifest-select {
+  width: 100%;
+  padding: 10px 12px;
+  font-family: var(--font-family, 'Baskerville', 'Libre Baskerville', Georgia, serif);
+  font-size: 14px;
+  color: var(--text-primary, #e8dcc8);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-light, rgba(107, 84, 68, 0.4));
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b7355' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  padding-right: 36px;
+}
+
+.mixtape-manifest-modal .manifest-select:focus {
+  border-color: var(--accent-amber, #d4843a);
+  box-shadow: 0 0 0 2px rgba(212, 132, 58, 0.2);
+}
+
+.mixtape-manifest-modal .manifest-select option {
+  background: #1a1210;
+  color: var(--text-primary, #e8dcc8);
+  padding: 8px;
+}

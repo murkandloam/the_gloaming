@@ -1,0 +1,689 @@
+/* MixtapeDetailPanel.css - Mixtape editing in Panopticon detail panel */
+
+.mixtape-detail-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  padding-top: 10px; /* Match RecordDetailPanel top padding */
+  padding-right: 8px; /* Clearance from scrollbar */
+  padding-bottom: 10px; /* Match top padding */
+}
+
+.mixtape-detail-loading,
+.mixtape-detail-empty {
+  color: var(--pan-silver-dim, #6b5444);
+  font-style: italic;
+  padding: 20px 0;
+}
+
+/* Header */
+.mixtape-detail-header {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.mixtape-detail-cassette-large {
+  position: relative;
+  width: 100px;
+  height: 140px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(107, 84, 68, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  flex-shrink: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.mixtape-detail-cassette-large:hover {
+  border-color: var(--pan-amber, #d4843a);
+}
+
+.mixtape-detail-cassette-large.drag-over {
+  border-color: var(--pan-amber, #d4843a);
+  border-style: dashed;
+  background: rgba(212, 132, 58, 0.1);
+}
+
+.mixtape-detail-cassette-large.has-custom-cover img {
+  object-fit: cover;
+}
+
+.mixtape-detail-cassette-large img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cover-drop-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(212, 132, 58, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.cover-drop-overlay span {
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--pan-amber, #d4843a);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.cover-clear-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  color: var(--pan-silver, #a89880);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.mixtape-detail-cassette-large:hover .cover-clear-btn {
+  opacity: 1;
+}
+
+.cover-clear-btn:hover {
+  color: #ff6b6b;
+}
+
+/* Cover column with Open Sleeve button */
+.mixtape-detail-cover-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Open Sleeve button - matches RecordDetailPanel */
+.mixtape-detail-open-sleeve-btn {
+  width: 100px; /* Match cover width */
+  padding: 6px 10px;
+  background: #1a0f0a;
+  border: 1px solid var(--pan-amber, #d4843a);
+  border-radius: 4px;
+  color: var(--pan-amber, #d4843a);
+  font-family: var(--font-family, 'Baskerville', 'Libre Baskerville', Georgia, serif);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.mixtape-detail-open-sleeve-btn:hover {
+  background: rgba(212, 132, 58, 0.15);
+  box-shadow: 0 0 8px rgba(212, 132, 58, 0.3);
+}
+
+/* Horizontal divider */
+.mixtape-detail-divider {
+  height: 1px;
+  background: rgba(107, 84, 68, 0.25);
+  margin: 4px 0;
+}
+
+.cassette-icon {
+  font-size: 24px;
+}
+
+.cassette-index {
+  font-size: 10px;
+  color: var(--pan-silver-dim, #6b5444);
+  margin-top: 2px;
+}
+
+.mixtape-detail-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mixtape-detail-info {
+  font-size: 12px;
+  color: var(--pan-silver-dim, #6b5444);
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+/* Metadata table - bordered box with alternating rows (matching RecordDetailPanel) */
+.mixtape-detail-meta-table {
+  border: 1px solid rgba(107, 84, 68, 0.3);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.mixtape-detail-meta-table .meta-row {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  font-size: 11px;
+}
+
+.mixtape-detail-meta-table .meta-row:nth-child(odd) {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.mixtape-detail-meta-table .meta-row:nth-child(even) {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.mixtape-detail-meta-table .meta-label {
+  width: 60px;
+  flex-shrink: 0;
+  color: var(--pan-silver-dim, #6b5444);
+  font-size: 10px;
+}
+
+.mixtape-detail-meta-table .meta-value {
+  flex: 1;
+  min-width: 0;
+  color: var(--pan-silver, #a89880);
+  font-size: 11px;
+}
+
+.mixtape-detail-meta-table .meta-value.meta-mono {
+  font-family: 'SF Mono', 'Monaco', monospace;
+  font-size: 9px;
+}
+
+/* Legacy info-meta styles for backwards compatibility */
+.mixtape-detail-info-meta {
+  display: flex;
+  gap: 8px;
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+.mixtape-detail-info-meta .meta-label {
+  color: var(--pan-silver-dim, #6b5444);
+}
+
+.mixtape-detail-info-meta .meta-value {
+  color: var(--pan-silver, #a89880);
+}
+
+.mixtape-detail-info-meta .meta-mono {
+  font-family: 'SF Mono', 'Monaco', monospace;
+  font-size: 9px;
+}
+
+/* Cassette selector */
+.mixtape-cassette-selector {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(107, 84, 68, 0.4);
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.cassette-selector-title {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--pan-silver-dim, #6b5444);
+  margin-bottom: 10px;
+}
+
+.cassette-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.cassette-option {
+  aspect-ratio: 2.5 / 4;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  overflow: hidden;
+}
+
+.cassette-option img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.cassette-option:hover {
+  border-color: rgba(139, 115, 85, 0.6);
+}
+
+.cassette-option.active {
+  border-color: var(--pan-amber, #d4843a);
+}
+
+/* Sections */
+.mixtape-detail-section {
+  padding-bottom: 12px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.mixtape-detail-section-title {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--pan-silver-dim, #6b5444);
+  margin-bottom: 8px;
+}
+
+/* Textarea */
+.mixtape-detail-textarea {
+  width: 100%;
+  padding: 10px;
+  font-family: var(--font-family, 'Baskerville', 'Libre Baskerville', Georgia, serif);
+  font-size: 13px;
+  color: var(--pan-cream, #e8dcc8);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(107, 84, 68, 0.4);
+  border-radius: 6px;
+  resize: vertical;
+  min-height: 60px;
+  outline: none;
+  transition: border-color 0.15s ease;
+  box-sizing: border-box;
+}
+
+.mixtape-detail-textarea:focus {
+  border-color: var(--pan-amber, #d4843a);
+}
+
+.mixtape-detail-textarea::placeholder {
+  color: var(--pan-silver-dim, #6b5444);
+  font-style: italic;
+}
+
+/* Track list */
+.mixtape-detail-track-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mixtape-detail-empty-tracks {
+  font-size: 12px;
+  color: var(--pan-silver-dim, #6b5444);
+  font-style: italic;
+  padding: 8px 0;
+}
+
+.mixtape-detail-track {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  margin: 0 -8px;
+  border-radius: 4px;
+  font-size: 13px;
+  transition: background-color 0.1s ease;
+}
+
+.mixtape-detail-track:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.mixtape-detail-track .track-number {
+  width: 20px;
+  text-align: right;
+  color: var(--pan-silver-dim, #6b5444);
+  font-size: 11px;
+  font-family: 'SF Mono', 'Monaco', monospace;
+}
+
+.mixtape-detail-track .track-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.mixtape-detail-track .track-title {
+  color: var(--pan-cream, #e8dcc8);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mixtape-detail-track .track-artist {
+  font-size: 11px;
+  color: var(--pan-silver, #a89880);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mixtape-detail-track .track-duration {
+  color: var(--pan-silver-dim, #6b5444);
+  font-size: 11px;
+  font-family: 'SF Mono', 'Monaco', monospace;
+}
+
+.mixtape-detail-track .track-remove-btn {
+  width: 18px;
+  height: 18px;
+  border: none;
+  background: transparent;
+  color: var(--pan-silver-dim, #6b5444);
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 3px;
+  opacity: 0;
+  transition: all 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mixtape-detail-track:hover .track-remove-btn {
+  opacity: 1;
+}
+
+.mixtape-detail-track .track-remove-btn:hover {
+  background: rgba(180, 60, 60, 0.3);
+  color: #e08080;
+}
+
+/* Toggle - Slider style matching ManifestModal (75% size) */
+.mixtape-detail-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--pan-silver, #a89880);
+  cursor: pointer;
+  padding: 3px 0;
+}
+
+.mixtape-detail-toggle input {
+  display: none;
+}
+
+.mixtape-detail-toggle .toggle-track {
+  width: 28px;
+  height: 16px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(107, 84, 68, 0.4);
+  border-radius: 8px;
+  position: relative;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.mixtape-detail-toggle .toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 10px;
+  height: 10px;
+  background: var(--pan-silver-dim, #6b5444);
+  border-radius: 50%;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.mixtape-detail-toggle input:checked + .toggle-track {
+  background: rgba(212, 132, 58, 0.3);
+  border-color: var(--pan-amber, #d4843a);
+}
+
+.mixtape-detail-toggle input:checked + .toggle-track .toggle-thumb {
+  transform: translateX(12px);
+  background: var(--pan-amber, #d4843a);
+}
+
+.mixtape-detail-toggle .toggle-label {
+  line-height: 1.3;
+}
+
+/* Meta footer */
+.mixtape-detail-meta-footer {
+  border-top: 1px solid rgba(107, 84, 68, 0.3);
+  padding-top: 12px;
+  margin-top: 8px;
+}
+
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 11px;
+}
+
+.meta-label {
+  color: var(--pan-silver-dim, #6b5444);
+}
+
+.meta-value {
+  color: var(--pan-silver, #a89880);
+}
+
+.meta-mono {
+  font-family: 'SF Mono', 'Monaco', monospace;
+  font-size: 10px;
+}
+
+/* Actions */
+.mixtape-detail-actions {
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.mixtape-detail-delete-btn {
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  background: rgba(180, 60, 60, 0.15);
+  border: 1px solid rgba(180, 60, 60, 0.4);
+  border-radius: 4px;
+  color: #e08080;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.mixtape-detail-delete-btn:hover {
+  background: rgba(180, 60, 60, 0.25);
+  border-color: rgba(180, 60, 60, 0.6);
+}
+
+.mixtape-detail-delete-confirm {
+  background: rgba(180, 60, 60, 0.15);
+  border: 1px solid rgba(180, 60, 60, 0.4);
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.mixtape-detail-delete-confirm > span {
+  display: block;
+  font-size: 12px;
+  color: #e08080;
+  margin-bottom: 10px;
+}
+
+.delete-confirm-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.delete-confirm-buttons button {
+  flex: 1;
+  padding: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.delete-confirm-buttons button:first-child {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(107, 84, 68, 0.4);
+  color: var(--pan-silver, #a89880);
+}
+
+.delete-confirm-buttons button:first-child:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.delete-confirm-buttons button.danger {
+  background: rgba(180, 60, 60, 0.5);
+  border: 1px solid rgba(180, 60, 60, 0.7);
+  color: #fff;
+}
+
+.delete-confirm-buttons button.danger:hover {
+  background: rgba(180, 60, 60, 0.7);
+}
+
+/* Sleeve Backdrop Section */
+.mixtape-detail-blur-section {
+  margin-top: 12px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.mixtape-detail-blur-label {
+  font-size: 11px;
+  color: var(--pan-silver-dim, #6b5444);
+  margin-bottom: 6px;
+}
+
+.mixtape-detail-blur-preview {
+  width: 100%;
+  height: 80px;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 8px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.mixtape-detail-blur-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mixtape-detail-blur-preview-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pan-cream, #e8dcc8);
+  font-size: 12px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.mixtape-detail-blur-slider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mixtape-detail-blur-slider input[type="range"] {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
+  outline: none;
+}
+
+.mixtape-detail-blur-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--pan-amber, #d4843a);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.mixtape-detail-blur-slider input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--pan-amber, #d4843a);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.mixtape-detail-blur-slider .blur-value {
+  font-size: 11px;
+  color: var(--pan-silver-dim, #6b5444);
+  min-width: 35px;
+  text-align: right;
+  font-family: 'SF Mono', 'Monaco', monospace;
+}
+
+/* Backdrop field row */
+.mixtape-detail-field-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.mixtape-detail-field-row .field-label {
+  font-size: 12px;
+  color: var(--pan-silver-dim, #6b5444);
+  min-width: 60px;
+}
+
+/* Backdrop image select */
+.mixtape-detail-select {
+  flex: 1;
+  padding: 6px 10px;
+  font-family: var(--font-family, 'Baskerville', 'Libre Baskerville', Georgia, serif);
+  font-size: 12px;
+  color: var(--pan-cream, #e8dcc8);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(107, 84, 68, 0.4);
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+.mixtape-detail-select:focus {
+  border-color: var(--pan-amber, #d4843a);
+}
+
+.mixtape-detail-select option {
+  background: var(--pan-mahogany-deep, #1a1410);
+  color: var(--pan-cream, #e8dcc8);
+}

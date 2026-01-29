@@ -1,0 +1,527 @@
+/**
+ * EphemeraBox - Universal attachment display styles
+ * Matches the aesthetic of RecordSleeveView ephemera box
+ */
+
+/* ============================================
+   Container
+   ============================================ */
+
+.ephemera-box {
+  position: relative;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(139, 90, 43, 0.3);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Corner add button - always visible, outside scroll area */
+.ephemera-add-btn-corner {
+  position: absolute;
+  top: 8px;
+  right: 20px; /* Position outside of scrollbar */
+  width: 28px;
+  height: 28px;
+  background: rgba(139, 90, 43, 0.2);
+  border: 1px dashed rgba(139, 90, 43, 0.5);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.ephemera-add-btn-corner:hover {
+  background: rgba(139, 90, 43, 0.35);
+  border-color: var(--accent-color, #d4a857);
+}
+
+.ephemera-add-btn-corner .ephemera-add-icon {
+  font-size: 16px;
+  color: rgba(139, 90, 43, 0.7);
+}
+
+.ephemera-add-btn-corner:hover .ephemera-add-icon {
+  color: var(--accent-color, #d4a857);
+}
+
+.ephemera-box-compact .ephemera-add-btn-corner {
+  width: 22px;
+  height: 22px;
+  top: 4px;
+  right: 4px;
+}
+
+.ephemera-box-compact .ephemera-add-btn-corner .ephemera-add-icon {
+  font-size: 12px;
+}
+
+.ephemera-box.drag-over {
+  border-color: var(--accent-color, #d4a857);
+  background: rgba(212, 168, 87, 0.1);
+}
+
+.ephemera-box.empty {
+  min-height: 80px;
+}
+
+/* Variant: full (sleeves) */
+.ephemera-box-full {
+  max-height: 300px;
+}
+
+/* Variant: medium (panopticon panels) */
+.ephemera-box-medium {
+  max-height: 200px;
+}
+
+/* Medium variant: + button above box, aligned with section title */
+.ephemera-box-medium .ephemera-add-btn-corner {
+  top: -28px; /* Position above the box */
+  right: 0;
+  width: 18px;
+  height: 18px;
+  background: rgba(0, 0, 0, 0.2); /* Match box interior */
+}
+
+.ephemera-box-medium .ephemera-add-btn-corner .ephemera-add-icon {
+  font-size: 12px;
+}
+
+/* Medium variant: reduce right padding since + button is above */
+.ephemera-box-medium .ephemera-scroll {
+  padding-right: 16px; /* Just enough for scrollbar clearance */
+}
+
+/* Variant: compact (inspector) */
+.ephemera-box-compact {
+  padding: 8px;
+  max-height: 120px;
+}
+
+/* ============================================
+   Header
+   ============================================ */
+
+.ephemera-box-header {
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 4px;
+}
+
+/* ============================================
+   Scroll container
+   ============================================ */
+
+.ephemera-scroll {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  overflow-y: auto;
+  padding: 4px;
+  align-content: flex-start;
+  min-height: 40px;
+}
+
+.ephemera-box-compact .ephemera-scroll {
+  gap: 4px;
+}
+
+/* ============================================
+   Individual items
+   ============================================ */
+
+.ephemera-item {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(139, 90, 43, 0.2);
+  transition: transform 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+  flex-shrink: 0;
+}
+
+.ephemera-item:hover {
+  border-color: var(--accent-color, #d4a857);
+  transform: scale(1.02);
+}
+
+.ephemera-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dragging states */
+.ephemera-item.dragging {
+  opacity: 0.5;
+  cursor: grabbing;
+}
+
+.ephemera-item.drag-target-before {
+  border-left: 3px solid var(--accent-color, #d4a857);
+}
+
+.ephemera-item.drag-target-after {
+  border-right: 3px solid var(--accent-color, #d4a857);
+}
+
+/* Document items */
+.ephemera-item-document {
+  background: rgba(60, 40, 20, 0.6);
+}
+
+.ephemera-item-icon-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  gap: 4px;
+}
+
+.ephemera-item-icon {
+  font-size: 24px;
+}
+
+.ephemera-box-compact .ephemera-item-icon {
+  font-size: 18px;
+}
+
+.ephemera-item-label {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+/* Remove button */
+.ephemera-item-remove {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 18px;
+  height: 18px;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease, background 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ephemera-item:hover .ephemera-item-remove {
+  opacity: 1;
+}
+
+.ephemera-item-remove:hover {
+  background: rgba(180, 60, 60, 0.9);
+  color: white;
+}
+
+/* Add button item */
+.ephemera-add-item {
+  background: rgba(139, 90, 43, 0.15);
+  border: 1px dashed rgba(139, 90, 43, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ephemera-add-item:hover {
+  background: rgba(139, 90, 43, 0.25);
+  border-color: var(--accent-color, #d4a857);
+}
+
+/* Corner add button for empty state */
+.ephemera-add-corner {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px !important;
+  height: 32px !important;
+}
+
+.ephemera-box-compact .ephemera-add-corner {
+  width: 24px !important;
+  height: 24px !important;
+  top: 4px;
+  right: 4px;
+}
+
+.ephemera-add-icon {
+  font-size: 28px;
+  color: rgba(139, 90, 43, 0.6);
+}
+
+.ephemera-add-corner .ephemera-add-icon {
+  font-size: 18px;
+}
+
+.ephemera-box-compact .ephemera-add-icon {
+  font-size: 20px;
+}
+
+.ephemera-box-compact .ephemera-add-corner .ephemera-add-icon {
+  font-size: 14px;
+}
+
+/* ============================================
+   Empty state
+   ============================================ */
+
+.ephemera-empty {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ephemera-empty-icon {
+  font-size: 24px;
+  opacity: 0.6;
+}
+
+.ephemera-empty-text {
+  font-size: 12px;
+}
+
+.ephemera-add-btn {
+  background: rgba(139, 90, 43, 0.3);
+  border: 1px solid rgba(139, 90, 43, 0.5);
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 4px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.ephemera-add-btn:hover {
+  background: rgba(139, 90, 43, 0.5);
+}
+
+/* ============================================
+   Size slider
+   ============================================ */
+
+.ephemera-size-control {
+  display: flex;
+  justify-content: center;
+  padding-top: 8px;
+  border-top: 1px solid rgba(139, 90, 43, 0.2);
+}
+
+.ephemera-size-slider {
+  width: 120px;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: rgba(139, 90, 43, 0.3);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.ephemera-size-slider:hover {
+  background: rgba(139, 90, 43, 0.5);
+}
+
+.ephemera-size-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--accent-color, #d4a857);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* ============================================
+   Lightbox
+   ============================================ */
+
+.ephemera-lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+}
+
+.ephemera-lightbox-image {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  cursor: default;
+}
+
+.ephemera-lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 24px;
+  height: 24px;
+  background: rgba(40, 30, 25, 0.8);
+  border: 1px solid rgba(107, 84, 68, 0.5);
+  border-radius: 3px;
+  color: #e8dcc8;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  z-index: 10001;
+}
+
+.ephemera-lightbox-close:hover {
+  background: rgba(60, 45, 35, 0.9);
+  color: #d4843a;
+}
+
+.ephemera-lightbox-prev,
+.ephemera-lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.4);
+  border: none;
+  color: white;
+  font-size: 36px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ephemera-lightbox-prev {
+  left: 10px;
+  border-radius: 0 4px 4px 0;
+}
+
+.ephemera-lightbox-next {
+  right: 10px;
+  border-radius: 4px 0 0 4px;
+}
+
+.ephemera-lightbox-prev:hover,
+.ephemera-lightbox-next:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.ephemera-lightbox-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+/* ============================================
+   Text Viewer
+   ============================================ */
+
+.ephemera-text-viewer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.ephemera-text-viewer {
+  width: 80%;
+  max-width: 800px;
+  max-height: 80vh;
+  background: var(--panel-bg, #2a1810);
+  border: 1px solid rgba(139, 90, 43, 0.5);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ephemera-text-viewer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(139, 90, 43, 0.3);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.ephemera-text-viewer-title {
+  font-size: 14px;
+  color: var(--accent-color, #d4a857);
+}
+
+.ephemera-text-viewer-close {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0 8px;
+}
+
+.ephemera-text-viewer-close:hover {
+  color: white;
+}
+
+.ephemera-text-viewer-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.ephemera-text-viewer-content pre {
+  margin: 0;
+  font-family: 'Baskerville', Georgia, serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.85);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

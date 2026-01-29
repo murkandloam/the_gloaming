@@ -1,0 +1,116 @@
+/* InlineEditField.css - Click-to-edit field for Panopticon detail panels */
+
+.inline-edit-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inline-edit-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--pan-silver-dim, #6b5444);
+}
+
+.inline-edit-display {
+  padding: 6px 8px;
+  margin: -6px -8px;
+  border-radius: 4px;
+  cursor: text;
+  transition: background-color 0.1s ease;
+  font-family: var(--font-family, 'Baskerville', 'Libre Baskerville', Georgia, serif);
+  font-size: 14px;
+  color: var(--pan-cream, #e8dcc8);
+  line-height: 1.4;
+}
+
+.inline-edit-field.disabled .inline-edit-display {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.inline-edit-field:not(.disabled) .inline-edit-display:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.inline-edit-field.empty .inline-edit-display {
+  color: var(--pan-silver-dim, #6b5444);
+  font-style: italic;
+}
+
+/* Title variant - larger text */
+.inline-edit-field.inline-edit-title .inline-edit-display,
+.inline-edit-field.inline-edit-title .inline-edit-input {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Subtitle variant - smaller, dimmer */
+.inline-edit-field.inline-edit-subtitle .inline-edit-display,
+.inline-edit-field.inline-edit-subtitle .inline-edit-input {
+  font-size: 13px;
+  color: var(--pan-silver, #a89880);
+}
+
+/* Monospace variant */
+.inline-edit-field.monospace .inline-edit-display,
+.inline-edit-field.monospace .inline-edit-input {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', monospace;
+  font-size: 12px;
+}
+
+/* Input styles */
+.inline-edit-input {
+  padding: 6px 8px;
+  margin: -6px -8px;
+  font-family: var(--font-family, 'Baskerville', 'Libre Baskerville', Georgia, serif);
+  font-size: 14px;
+  color: var(--pan-cream, #e8dcc8);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--pan-amber, #d4843a);
+  border-radius: 4px;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(212, 132, 58, 0.2);
+  width: calc(100% + 16px);
+  box-sizing: border-box;
+}
+
+.inline-edit-input::placeholder {
+  color: var(--pan-silver-dim, #6b5444);
+  font-style: italic;
+}
+
+/* Title variant input */
+.inline-edit-field.inline-edit-title .inline-edit-input {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Subtitle variant input */
+.inline-edit-field.inline-edit-subtitle .inline-edit-input {
+  font-size: 13px;
+}
+
+/* Inline row layout - for side-by-side label + field */
+.inline-edit-row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  align-items: center;
+  gap: 12px;
+}
+
+.inline-edit-row .inline-edit-field {
+  flex-direction: row;
+  align-items: center;
+}
+
+.inline-edit-row .inline-edit-label {
+  min-width: 60px;
+}
+
+.inline-edit-row .inline-edit-display,
+.inline-edit-row .inline-edit-input {
+  flex: 1;
+}

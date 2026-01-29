@@ -1,0 +1,476 @@
+/* Mixtapes View */
+.mixtapes-view {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mixtapes-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 12px 16px;
+  padding-bottom: 20px;
+}
+
+/* Header with New buttons */
+.mixtapes-header {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.mixtapes-new-btn {
+  padding: 10px 20px;
+  background: var(--text-primary, #e8dcc8);
+  color: var(--content-bg-start, #1a0d08);
+  border: none;
+  border-radius: 4px;
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.mixtapes-new-btn:hover {
+  opacity: 0.9;
+}
+
+.mixtapes-new-btn-disabled {
+  background: var(--button-bg, rgba(46, 24, 16, 0.4));
+  color: var(--text-inactive, #6b5444);
+  border: 1px solid var(--button-border, rgba(107, 84, 68, 0.5));
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.mixtapes-new-btn-disabled:hover {
+  opacity: 0.6;
+}
+
+/* Loading state */
+.mixtapes-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-tertiary, #8b7355);
+  font-size: 14px;
+}
+
+/* Empty state */
+.mixtapes-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 100px);
+  color: var(--text-tertiary, #8b7355);
+  font-size: 14px;
+  gap: 8px;
+}
+
+.mixtapes-empty-icon {
+  font-size: 64px;
+  margin-bottom: 12px;
+  opacity: 0.6;
+}
+
+.mixtapes-empty-title {
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 20px;
+  color: var(--text-secondary, #a89880);
+}
+
+.mixtapes-empty-hint {
+  font-size: 13px;
+  color: var(--text-inactive, #6b5444);
+  margin-top: 4px;
+}
+
+/* Mixtapes Grid - Cassette proportions (2.5:4 = width:height) */
+.mixtapes-grid {
+  display: grid;
+  /* Cassette J-card is approximately 4 inches wide by 2.5 inches tall */
+  /* We flip it to portrait: 2.5 wide : 4 tall = 0.625 aspect ratio */
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 20px;
+  align-content: start;
+}
+
+/* Mixtape Card */
+.mixtape-card {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.mixtape-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Mixtape Cover - Cassette J-card proportions */
+.mixtape-cover {
+  position: relative;
+  width: 100%;
+  /* Cassette proportions: width 2.5 : height 4 = aspect-ratio 2.5/4 = 0.625 */
+  aspect-ratio: 2.5 / 4;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Cover image */
+.mixtape-cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Name pill overlaying bottom of cover */
+.mixtape-name-pill {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  padding: 6px 10px;
+  background: rgba(20, 15, 12, 0.75);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+}
+
+.mixtape-name {
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-primary, #e8dcc8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  -webkit-app-region: no-drag;
+}
+
+.modal-content {
+  z-index: 10001;
+  background: var(--content-bg-start, #1a0d08);
+  border: 1px solid var(--glass-border, rgba(107, 84, 68, 0.5));
+  border-radius: 8px;
+  min-width: 360px;
+  max-width: 480px;
+  box-shadow: 0 16px 64px rgba(0, 0, 0, 0.6);
+}
+
+.new-mixtape-modal {
+  min-width: 320px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--glass-border, rgba(107, 84, 68, 0.3));
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-primary, #e8dcc8);
+}
+
+.modal-close {
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  color: var(--text-tertiary, #8b7355);
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.modal-close:hover {
+  background: var(--button-bg, rgba(46, 24, 16, 0.4));
+  color: var(--text-primary, #e8dcc8);
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-tertiary, #8b7355);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.modal-input {
+  padding: 10px 12px;
+  background: var(--button-bg, rgba(46, 24, 16, 0.4));
+  border: 1px solid var(--button-border, rgba(107, 84, 68, 0.5));
+  border-radius: 4px;
+  color: var(--text-primary, #e8dcc8);
+  font-family: inherit;
+  font-size: 14px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.modal-input:focus {
+  outline: none;
+  border-color: var(--accent-primary, #d4843a);
+}
+
+.modal-input::placeholder {
+  color: var(--text-inactive, #6b5444);
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--glass-border, rgba(107, 84, 68, 0.3));
+}
+
+.modal-btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-family: 'Baskerville', 'Libre Baskerville', Georgia, serif;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.modal-btn-secondary {
+  background: transparent;
+  border: 1px solid var(--button-border, rgba(107, 84, 68, 0.5));
+  color: var(--text-secondary, #a89880);
+}
+
+.modal-btn-secondary:hover {
+  background: var(--button-bg, rgba(46, 24, 16, 0.4));
+  color: var(--text-primary, #e8dcc8);
+}
+
+.modal-btn-primary {
+  background: var(--accent-primary, #d4843a);
+  border: none;
+  color: var(--content-bg-start, #1a0d08);
+  font-weight: 600;
+}
+
+.modal-btn-primary:hover {
+  opacity: 0.9;
+}
+
+.modal-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* View Options Bar - matches Records view bar */
+.mixtapes-options-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 8px 20px;
+  background: var(--glass-bg, rgba(20, 15, 12, 0.95));
+  backdrop-filter: blur(20px) saturate(180%);
+  border-top: 1px solid var(--border-light, rgba(107, 84, 68, 0.4));
+  flex-shrink: 0;
+  -webkit-app-region: no-drag;
+}
+
+.mixtapes-options-bar .options-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Sort control */
+.mixtapes-options-bar .sort-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mixtapes-options-bar .sort-label {
+  font-size: 11px;
+  color: var(--text-secondary, #a89880);
+  letter-spacing: 0.05em;
+}
+
+.mixtapes-options-bar .sort-pill {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 6px 4px 8px;
+  background: rgba(212, 132, 58, 0.15);
+  border: 1px solid rgba(212, 132, 58, 0.3);
+  border-radius: 14px;
+}
+
+.mixtapes-options-bar .sort-pill:hover {
+  background: rgba(212, 132, 58, 0.25);
+  border-color: rgba(212, 132, 58, 0.5);
+}
+
+.mixtapes-options-bar .sort-field-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 6px;
+  background: transparent;
+  border: none;
+  color: var(--accent-amber, #d4843a);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.mixtapes-options-bar .sort-field-btn:hover {
+  color: var(--text-primary, #e8dcc8);
+}
+
+.mixtapes-options-bar .dropdown-arrow {
+  font-size: 7px;
+  opacity: 0.6;
+}
+
+.mixtapes-options-bar .sort-direction-btn {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(212, 132, 58, 0.2);
+  border-radius: 4px;
+  color: var(--accent-amber, #d4843a);
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.mixtapes-options-bar .sort-direction-btn:hover {
+  background: rgba(212, 132, 58, 0.2);
+  border-color: rgba(212, 132, 58, 0.4);
+}
+
+/* Sort dropdown */
+.mixtapes-options-bar .sort-dropdown {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 4px;
+  min-width: 140px;
+  background: var(--glass-bg, rgba(20, 15, 12, 0.98));
+  border: 1px solid var(--border-medium, rgba(139, 115, 85, 0.5));
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+
+.mixtapes-options-bar .dropdown-item {
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--text-secondary, #a89880);
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.mixtapes-options-bar .dropdown-item:hover {
+  background: rgba(212, 132, 58, 0.15);
+  color: var(--text-primary, #e8dcc8);
+}
+
+.mixtapes-options-bar .dropdown-item.active {
+  color: var(--accent-amber, #d4843a);
+}
+
+/* Grid size slider - matches Records view */
+.mixtapes-options-bar .grid-size-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mixtapes-options-bar .grid-size-icon {
+  color: var(--text-tertiary, #8b7355);
+  font-size: 8px;
+}
+
+.mixtapes-options-bar .grid-size-icon.small {
+  font-size: 6px;
+}
+
+.mixtapes-options-bar .grid-size-icon.large {
+  font-size: 12px;
+}
+
+.mixtapes-options-bar .grid-size-slider {
+  width: 80px;
+  height: 4px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.mixtapes-options-bar .grid-size-slider::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--accent-amber, #d4843a);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.mixtapes-options-bar .grid-size-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Dynamic grid sizing */
+.mixtapes-grid {
+  grid-template-columns: repeat(auto-fill, minmax(var(--mixtape-width, 140px), 1fr));
+}
